@@ -6,8 +6,7 @@ module.exports = {
 		extend: {
             fontFamily: {
                 titulo: ['"Secular One"', '"sans-serif"'],
-                texto: ['"Murecho"', '"sans-serif"'],
-                cualquiera: ['"Fasthand"', '"cursive"']
+                texto: ['"Oxygen"', '"sans-serif"'],
             }
         },
 	},
