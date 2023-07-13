@@ -18,4 +18,17 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { blog };
+const trabajos = defineCollection({
+    // Type-check frontmatter using a schema
+    schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        // Transform string to Date object
+        updatedDate: z
+        .string()
+        .transform((str) => (str ? new Date(str) : undefined)),
+        caption: z.string().optional(),
+    }),
+});
+
+export const collections = { blog, trabajos };
