@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 
 type Props = CollectionEntry<'trabajos'>['data'];
 
-const { title, description, updatedDate, caption} = Astro.props;
+const { title, description, caption} = Astro.props;
 ---
 
 <html lang="en">
@@ -15,10 +15,10 @@ const { title, description, updatedDate, caption} = Astro.props;
     </head>
     <body>
         <Header/>
-        {caption}, {updatedDate}
+        {caption}
         <main>
             <article>
-                <h1 class="font-titulo">{title}</h1>
+                <h1>{title}</h1>
                 <hr />
                 <slot />
             </article>

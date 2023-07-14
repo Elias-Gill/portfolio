@@ -40,7 +40,7 @@ const posts = (await getCollection('trabajos')).sort(
 					{
 						posts.map((post) => (
 							<li>
-								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+								<a href={`/trabajos/${post.slug}/`}>{post.data.title}</a>
 							</li>
 						))
 					}
