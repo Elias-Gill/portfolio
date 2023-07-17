@@ -1,26 +1,22 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
 ---
 
-<header>
-	<h2>
-		{SITE_TITLE}
-	</h2>
-	<nav>
-		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
-        <HeaderLink href="/trabajos">trabajos</HeaderLink>
-		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/withastro/astro" target="_blank">GitHub</HeaderLink>
-	</nav>
-</header>
 <style>
-	header {
-		margin: 0em 0 2em;
-	}
-	h2 {
-		margin: 0.5em 0;
-	}
+.gradient {
+    background: linear-gradient(to top, black, rgba(60,60,60, 0.4));
+}
 </style>
+<header class="fixed w-full p-2 z-20 backdrop-blur-md">
+    <div class="mx-auto max-w-3xl">
+        <div class="flex flex-full justify-center fixed">
+            <nav class="justify-center">
+                <HeaderLink href="/">Home</HeaderLink>
+                <HeaderLink href="/works">Blog</HeaderLink>
+            </nav>
+            <nav class="justify-center">
+                <HeaderLink href="https://github.com/elias-gill" target="_blank">GitHub</HeaderLink>
+            </nav>
+        </div>
+    </div>
+</header>
