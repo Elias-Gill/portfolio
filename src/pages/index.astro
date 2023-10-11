@@ -1,27 +1,20 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     </head>
-    <body class="bg-black text-gray-300 font-texto text w-full ml-auto mr-auto">
+    <body class="mx-auto max-w-7xl">
         <Header title={SITE_TITLE} />
-        <!-- <img src="../../public/placeholder-hero.jpg" alt=""> -->
         <main>
-            <h1 class="font-titulo text-4xl text-center">🧑‍🚀 Elias Gill</h1>
-            <p class="mt-4">
-                Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-                template serves as a lightweight, minimally-styled starting point for anyone looking to build
-                a personal website, blog, or portfolio with Astro.
-            </p>
-            <p class="m-4">Mi nombre es Elias Gill, que mas queres que te diga pedazo de subnormal</p>
+            Algunos de los proyectos que llevo a cabo
         </main>
         <Footer />
-	</body>
+    </body>
 </html>

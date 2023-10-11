@@ -1,23 +1,20 @@
 ---
-import HeaderLink from './HeaderLink.astro';
+import HeaderLink from './HeaderLink.astro'
 ---
 
-<style>
-.gradient {
-    background: linear-gradient(to top, black, rgba(60,60,60, 0.4));
-}
-</style>
-<header class="fixed w-full p-2 z-20 backdrop-blur-md">
-    <div class="mx-auto max-w-3xl">
-        <div class="flex flex-full justify-center fixed">
-            <nav class="justify-center">
-                <HeaderLink href="/">Home</HeaderLink>
-                <HeaderLink href="/trabajos">Trabajos</HeaderLink>
-                <HeaderLink href="/notas">Notas</HeaderLink>
-            </nav>
-            <nav class="justify-center">
-                <HeaderLink href="https://github.com/elias-gill" target="_blank">GitHub</HeaderLink>
-            </nav>
-        </div>
-    </div>
+<header class="flex py-4 justify-between w-full border-b
+    border-blue-gray-50 mt-2 text-center px-8
+    ">
+    <nav class="justify-center">
+        <HeaderLink class="px-2" href="/">Home</HeaderLink>
+        <HeaderLink class="px-2" href="/trabajos">Trabajos</HeaderLink>
+        <HeaderLink class="px-2" href="/notas">Notas</HeaderLink>
+    </nav>
+
+    <nav>
+        <HeaderLink href="https://github.com/elias-gill" target="_blank">
+            <img src="/github/icono/github-mark.svg" alt="" class="h-6 w-6">
+                GitHub
+        </HeaderLink>
+    </nav>
 </header>

@@ -1,7 +1,7 @@
 arrowParens: 'avoid'
-singleQuote: true
 bracketSpacing: true
 endOfLine: 'lf'
+trailingComma: "es5"
+tabWidth: 4
 semi: false
-tabWith: 4
-trailingCommma: 'none'
+singleQuote: true
