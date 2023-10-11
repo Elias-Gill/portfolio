@@ -1,0 +1,35 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+
+const rtabajos = (await getCollection('trabajos')).sort(
+	(a, b) => new Date(a.data.pubDate.valueOf()).valueOf() - new Date(b.data.pubDate.valueOf()).valueOf()
+);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<ul>
+					{
+						rtabajos.map((trabajo) => (
+							<li class="visited:text-purple">
+								<a href={`/works/${trabajo.slug}/`}>{trabajo.data.title}</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
