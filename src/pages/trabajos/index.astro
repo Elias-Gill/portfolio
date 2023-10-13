@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content'
+import BaseSqueleton from '../../layouts/BaseSqueleton.astro'
 
-const coleccion = "trabajos"
+const coleccion = 'trabajos'
 const trabajos = (await getCollection(coleccion)).sort(
     (a, b) =>
         new Date(a.data.pubDate.valueOf()).valueOf() -
@@ -9,14 +10,23 @@ const trabajos = (await getCollection(coleccion)).sort(
 )
 ---
 
-<section>
-    <ul>
-        {
-            trabajos.map(trabajo => (
-                <li class="visited:text-purple hover:underline">
-                    <a href={`/${coleccion}/${trabajo.slug}/`}>{trabajo.data.titulo}</a>
-                </li>
-            ))
-        }
-    </ul>
-</section>
+<BaseSqueleton>
+    <section>
+        <ul>
+            {
+                trabajos.map(trabajo => (
+                    <a href={`/${coleccion}/${trabajo.slug}/`}>
+                        <li class="visited:text-purple hover:underline my-4">
+                            {trabajo.data.titulo}
+                            <img
+                                src={trabajo.data.caption}
+                                alt=""
+                                class="mt-2 object-fill h-48 w-48 rounded-md"
+                            />
+                        </li>
+                    </a>
+                ))
+            }
+        </ul>
+    </section>
+</BaseSqueleton>

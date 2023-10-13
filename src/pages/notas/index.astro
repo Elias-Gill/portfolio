@@ -6,10 +6,10 @@ const notas = await getCollection(coleccion)
 ---
 
 <section>
-    <ul class="hover:underline">
+    <ul>
         {
             notas.map(nota => (
-                <li class="visited:text-purple hover:underline">
+                <li class="visited:text-purple hover:underline list-none">
                     <a href={`/${coleccion}/${nota.slug}/`}>{nota.data.titulo}</a>
                 </li>
             ))

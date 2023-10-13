@@ -6,6 +6,8 @@ import Footer from '../components/Footer.astro'
 import type { CollectionEntry } from 'astro:content'
 type Props = CollectionEntry<'notas'>['data']
 const { titulo, descripcion } = Astro.props
+
+import '../styles/markdown.css'
 ---
 
 <!DOCTYPE html>
@@ -16,8 +18,8 @@ const { titulo, descripcion } = Astro.props
     <body class="mx-auto max-w-6xl px-4">
         <Header title={titulo} />
         <main class="my-8">
-            <article>
-                <h1 class="font-titulo">{titulo}</h1>
+            <h1 class="font-titulo">{titulo}</h1>
+            <article class="markdown-body">
                 <hr />
                 <slot />
             </article>

@@ -2,7 +2,7 @@
 titulo: 'Markdown Style Guide'
 descripcion: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
 pubDate: 'Jul 01 2022'
-caption: '/placeholder-hero.jpg'
+caption: 'vim.png'
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
