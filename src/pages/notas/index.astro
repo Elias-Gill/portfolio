@@ -1,33 +1,18 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
+import { getCollection } from 'astro:content'
 
-const notas = (await getCollection('notas'))
+const coleccion = "notas"
+const notas = await getCollection(coleccion)
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						notas.map((nota) => (
-							<li class="visited:text-purple">
-								<a href={`/notas/${nota.slug}/`}>{nota.data.titulo}</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<section>
+    <ul class="hover:underline">
+        {
+            notas.map(nota => (
+                <li class="visited:text-purple hover:underline">
+                    <a href={`/${coleccion}/${nota.slug}/`}>{nota.data.titulo}</a>
+                </li>
+            ))
+        }
+    </ul>
+</section>

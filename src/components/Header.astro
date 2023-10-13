@@ -1,10 +1,11 @@
 ---
 import HeaderLink from './HeaderLink.astro'
+// import ThemeSwitcher from './ThemeSwitcher.astro'
 ---
 
-<header class="flex py-4 justify-between w-full border-b
-    border-blue-gray-50 mt-2 text-center px-8
-    ">
+<header
+    class="flex py-4 justify-between w-full bg-blue-50 border-b border-blue-gray-50 mt-2 text-center px-8"
+>
     <nav class="justify-center">
         <HeaderLink class="px-2" href="/">Home</HeaderLink>
         <HeaderLink class="px-2" href="/trabajos">Trabajos</HeaderLink>
@@ -12,9 +13,15 @@ import HeaderLink from './HeaderLink.astro'
     </nav>
 
     <nav>
-        <HeaderLink href="https://github.com/elias-gill" target="_blank">
-            <img src="/github/icono/github-mark.svg" alt="" class="h-6 w-6">
-                GitHub
+        <HeaderLink
+            class="flex align-middle"
+            href="https://github.com/elias-gill"
+            target="_blank"
+        >
+            <div class="flex items-center">
+                <img src="/github/icono/github-mark.svg" alt="" class="h-6 w-6 mx-2" />
+                <div>GitHub</div>
+            </div>
         </HeaderLink>
     </nav>
 </header>
