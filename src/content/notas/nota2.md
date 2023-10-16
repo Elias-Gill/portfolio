@@ -4,8 +4,8 @@ descripcion: Nada de nada, es solo para probar
 ---
 
 # TODO:
-- [-] Configurar routers
-- [-] Disenar y armar la BD
+- [X] Configurar routers
+- [X] Disenar y armar la BD
 - [ ] Crear Tests para los endpoints
 - [ ] Crear un server de testing
 - [ ] Levantar server
