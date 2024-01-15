@@ -1,7 +1,17 @@
-arrowParens: 'avoid'
-bracketSpacing: true
-endOfLine: 'lf'
-trailingComma: "es5"
-tabWidth: 4
-semi: false
-singleQuote: true
+{
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true,
+    "overrides": [
+        {
+            "files": "*.html",
+            "options": {
+                "tabWidth": 4
+            }
+        }
+    ]
+}
