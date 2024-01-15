@@ -12,18 +12,18 @@ import '../styles/markdown.css'
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <BaseHead title={titulo} description={descripcion} />
-    </head>
-    <body class="mx-auto max-w-6xl px-4">
-        <Header title={titulo} />
-        <main class="my-8">
-            <h1 class="font-titulo">{titulo}</h1>
-            <article class="markdown-body">
-                <hr />
-                <slot />
-            </article>
-        </main>
-        <Footer />
-    </body>
+  <head>
+    <BaseHead title={titulo} description={descripcion} />
+  </head>
+  <body class="mx-auto max-w-6xl px-4">
+    <Header title={titulo} />
+    <main class="my-8">
+      <h1 class="font-titulo">{titulo}</h1>
+      <article class="markdown-body">
+        <hr />
+        <slot />
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>

@@ -4,29 +4,29 @@ import BaseSqueleton from '../../layouts/BaseSqueleton.astro'
 
 const coleccion = 'trabajos'
 const trabajos = (await getCollection(coleccion)).sort(
-    (a, b) =>
-        new Date(a.data.pubDate.valueOf()).valueOf() -
-        new Date(b.data.pubDate.valueOf()).valueOf()
+  (a, b) =>
+    new Date(a.data.pubDate.valueOf()).valueOf() -
+    new Date(b.data.pubDate.valueOf()).valueOf()
 )
 ---
 
 <BaseSqueleton>
-    <section>
-        <ul>
-            {
-                trabajos.map(trabajo => (
-                    <a href={`/${coleccion}/${trabajo.slug}/`}>
-                        <li class="visited:text-purple hover:underline my-4">
-                            {trabajo.data.titulo}
-                            <img
-                                src={trabajo.data.caption}
-                                alt=""
-                                class="mt-2 object-fill h-48 w-48 rounded-md"
-                            />
-                        </li>
-                    </a>
-                ))
-            }
-        </ul>
-    </section>
+  <section>
+    <ul>
+      {
+        trabajos.map(trabajo => (
+          <a href={`/${coleccion}/${trabajo.slug}/`}>
+            <li class="visited:text-purple hover:underline my-4">
+              {trabajo.data.titulo}
+              <img
+                src={trabajo.data.caption}
+                alt=""
+                class="mt-2 object-fill h-48 w-48 rounded-md"
+              />
+            </li>
+          </a>
+        ))
+      }
+    </ul>
+  </section>
 </BaseSqueleton>
