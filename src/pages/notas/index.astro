@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 
-const coleccion = "notas"
+const coleccion = 'notas'
 const notas = await getCollection(coleccion)
 ---
 
@@ -10,7 +10,9 @@ const notas = await getCollection(coleccion)
         {
             notas.map(nota => (
                 <li class="visited:text-purple hover:underline list-none">
-                    <a href={`/${coleccion}/${nota.slug}/`}>{nota.data.titulo}</a>
+                    <a href={`/${coleccion}/${nota.slug}/`}>
+                        {nota.data.titulo}
+                    </a>
                 </li>
             ))
         }
