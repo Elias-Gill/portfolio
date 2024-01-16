@@ -1,27 +1,31 @@
 ---
-import HeaderLink from './HeaderLink.astro'
-// import ThemeSwitcher from './ThemeSwitcher.astro'
+import ThemeToggle from './ThemeToggleButton'
+import HeaderButton from './HeaderButton.astro'
 ---
 
-<header
-  class="flex py-4 justify-between w-full bg-blue-50 border-b border-blue-gray-50 mt-2 text-center px-8"
->
-  <nav class="justify-center">
-    <HeaderLink class="px-2" href="/">Home</HeaderLink>
-    <HeaderLink class="px-2" href="/trabajos">Trabajos</HeaderLink>
-    <HeaderLink class="px-2" href="/notas">Notas</HeaderLink>
-  </nav>
-
-  <nav>
-    <HeaderLink
-      class="flex align-middle"
-      href="https://github.com/elias-gill"
-      target="_blank"
+<header>
+  <div
+    class="bg-white fixed top-0 left-0 z-50 w-full h-14 border-b border-gray-200 dark:bg-gray-700 dark:border-gray-600"
+  >
+    <div
+      class="h-full font-medium py-4 max-w-4xl flex justify-around mx-auto items-center"
     >
-      <div class="flex items-center">
-        <img src="/github/icono/github-mark.svg" alt="" class="h-6 w-6 mx-2" />
-        <div>GitHub</div>
+      <div>
+        <HeaderButton><span>Home</span></HeaderButton>
+        <HeaderButton><span>About</span></HeaderButton>
+        <HeaderButton>
+          <div class="flex">
+            <img
+              src="../../public/github/icono/github-mark.svg"
+              alt=""
+              class="h-4 w-4 mr-1"
+            />
+            <span>Github</span>
+          </div>
+        </HeaderButton>
       </div>
-    </HeaderLink>
-  </nav>
+
+      <ThemeToggle client:visible />
+    </div>
+  </div>
 </header>
