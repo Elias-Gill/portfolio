@@ -19,7 +19,7 @@ func templateFromBase(w http.ResponseWriter, names ...string) (*template.Templat
 	return tmpl, nil
 }
 func serveTemplate(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := templateFromBase(w, "./templates/home.html", "./templates/projects.html")
+	tmpl, err := templateFromBase(w, "./templates/home.html", "./templates/projects.html", "./templates/tecnologias.html")
 	if err != nil {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 		return
