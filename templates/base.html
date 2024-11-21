@@ -5,9 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Minimal Landing Page</title>
     <link rel="stylesheet" href="/assets/bulma/bulma.min.css">
+    <!-- gruvbox colorscheme for the website -->
+    <style>
+      /* Background and Base Colors */
+      .gruvbox-bg {
+          background-color: #282828; /* Dark0 - Main background */
+      }
+      .gruvbox-fg {
+          color: #ebdbb2; /* Light1 - Main foreground text */
+      }
+
+      /* Accent Colors */
+      .gruvbox-cyan {
+          color: #83a598; /* Bright Yellow - Buttons/Links */
+      }
+      .gruvbox-orange {
+          color: #fabd2f; /* Bright Blue - Emphasis */
+      }
+      .gruvbox-magenta {
+          color: #d3869b; /* Bright Yellow - Buttons/Links */
+      }
+
+      /* Accent Colors */
+      .gruvbox-primary-bg {
+          background-color: #3b3b3e; /* Bright Yellow - Buttons/Links */
+      }
+      .gruvbox-secondary-bg {
+          background-color: #2a2a2c; /* Bright Green - Highlights */
+      }
+      .gruvbox-accent-bg {
+          background-color: #83a598; /* Bright Blue - Emphasis */
+      }
+    </style>
   </head>
-  <body>
-      {{ block "navbar" . }}{{ end }}
+  <body class="gruvbox-fg gruvbox-bg">
+    {{ block "navbar" . }}{{ end }}
     <div>
       {{ block "content" . }}{{ end }}
     </div>

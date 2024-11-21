@@ -1,5 +1,8 @@
 {{ define "projects" }}
 <style>
+    .is-bordered {
+        border: 1px solid #ebdbb222;
+    }
   .slider {
       width: 300px;
       text-align: center;
@@ -54,22 +57,6 @@
       /*   transform: scale(0.8); */
   }
 
-  .author-info {
-      background: rgba(0, 0, 0, 0.75);
-      color: white;
-      padding: 0.75rem;
-      text-align: center;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      margin: 0;
-  }
-
-  .author-info a {
-      color: white;
-  }
-
   img {
       object-fit: cover;
       position: absolute;
@@ -83,7 +70,8 @@
       display: inline-flex;
       width: 1.5rem;
       height: 1.5rem;
-      background: white;
+      border: 1px solid #ebdbb211;
+      background: #282828;
       text-decoration: none;
       align-items: center;
       justify-content: center;
@@ -93,7 +81,7 @@
   }
 
   .slider > a:active {
-      top: 1px;
+      top: 111px;
   }
 
   .slider > a:focus {
@@ -107,15 +95,13 @@
       }
   }
 </style>
-<div class="container mt-6">
   <div class="columns">
-
     <div class="column">
-      <article class="message is-gray">
-        <div class="message-header">
+      <article class="message is-bordered">
+        <div class="message-header gruvbox-primary-bg gruvbox-cyan">
           <p>Walldo</p>
         </div>
-        <div class="message-body">
+        <div class="message-body gruvbox-secondary-bg">
           <div class="slider mb-5">
             <a href="#walldo-1">1</a>
             <a href="#walldo-2">2</a>
@@ -133,21 +119,20 @@
         </div>
       </article>
     </div>
-
     <div class="column">
-      <article class="message is-gray">
-        <div class="message-header">
-          <p>Interprete</p>
+      <article class="message is-bordered">
+        <div class="message-header gruvbox-primary-bg gruvbox-cyan">
+          <p>Interprete REPL</p>
         </div>
-        <div class="message-body">
+        <div class="message-body gruvbox-secondary-bg">
           <div class="slider mb-5">
-            <a href="#walldo-1">1</a>
-            <a href="#walldo-2">2</a>
+            <a href="#interprete-1">1</a>
+            <a href="#interprete-2">2</a>
             <div class="slides">
-              <div id="walldo-1">
+              <div id="interprete-1">
                 <img src="/assets/projects/walldo_1.png" alt="walldo_1">
               </div>
-              <div id="walldo-2">
+              <div id="interprete-2">
                 <img src="/assets/projects/walldo_2.png" alt="walldo_1">
               </div>
             </div>
@@ -157,31 +142,28 @@
         </div>
       </article>
     </div>
-
     <div class="column">
-        <article class="message is-gray">
-            <div class="message-header">
-                <p>Simulador de fluidos</p>
+      <article class="message is-bordered">
+        <div class="message-header gruvbox-primary-bg gruvbox-cyan">
+          <p>Simulador de fluidos</p>
+        </div>
+        <div class="message-body gruvbox-secondary-bg">
+          <div class="slider mb-5">
+            <a href="#simulador-1">1</a>
+            <a href="#simulador-2">2</a>
+            <div class="slides">
+              <div id="simulador-1">
+                <img src="/assets/projects/walldo_1.png" alt="walldo_1">
+              </div>
+              <div id="simulador-2">
+                <img src="/assets/projects/walldo_2.png" alt="walldo_1">
+              </div>
             </div>
-            <div class="message-body">
-                <div class="slider mb-5">
-                    <a href="#walldo-1">1</a>
-                    <a href="#walldo-2">2</a>
-                    <div class="slides">
-                        <div id="walldo-1">
-                            <img src="/assets/projects/walldo_1.png" alt="walldo_1">
-                        </div>
-                        <div id="walldo-2">
-                            <img src="/assets/projects/walldo_2.png" alt="walldo_1">
-                        </div>
-                    </div>
-                </div>
-                <p>
-                Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. </p>
-            </div>
-        </article>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. </p>
+        </div>
+      </article>
     </div>
-
-  </div>
 </div>
 {{ end }}
