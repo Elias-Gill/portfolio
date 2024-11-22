@@ -1,10 +1,17 @@
 package main
 
 import (
+	"bytes"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"path"
+
+	"github.com/yuin/goldmark"
+	// highlighting "github.com/yuin/goldmark-highlighting/v2"
+	meta "github.com/yuin/goldmark-meta"
+	"github.com/yuin/goldmark/parser"
 )
 
 func templateFromBase(names ...string) (*template.Template, error) {
@@ -31,16 +38,51 @@ func serveAboutMe(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 	}
 }
-
 func servePostsList(w http.ResponseWriter, r *http.Request) {
-	// TODO: Parsear los metadatos y sacar los titulos
-	posts, err := os.ReadDir("./posts")
+	files, err := os.ReadDir("./posts")
 	if err != nil {
 		log.Fatal("Cannot open posts folder")
 	}
 
-	for _, file := range posts {
-		w.Write([]byte(file.Name()))
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			meta.Meta,
+		),
+	)
+
+	// Extract files metadata
+	var posts []Metadata
+	for _, f := range files {
+		content, err := os.ReadFile(path.Join("./posts", f.Name()))
+		if err != nil {
+			continue
+		}
+
+		// extract file metadata
+		var buf bytes.Buffer
+		context := parser.NewContext()
+		if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
+			panic(err)
+		}
+		metaData := meta.Get(context)
+
+		posts = append(posts, Metadata{
+			Title:       metaData["Title"],
+			Date:        metaData["Date"],
+			Description: metaData["Description"],
+			Image:       metaData["Image"],
+		})
+	}
+
+	tmp, err := templateFromBase("./pages/posts/list.html")
+	if err != nil {
+		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		return
+	}
+
+	err = tmp.ExecuteTemplate(w, "base.html", &TemplateData{Posts: posts})
+	if err != nil {
+		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 	}
 }
 
@@ -61,3 +103,27 @@ func main() {
 		log.Fatalf("Cannot initialize server on port 8000: %s", err.Error())
 	}
 }
+
+type TemplateData struct {
+	Posts []Metadata
+}
+
+// NOTE: for now is not needed to cast it to some specific value and curate the data
+type Metadata struct {
+	Title       interface{}
+	Date        interface{}
+	Description interface{}
+	Image       interface{}
+}
+
+// markdown2 := goldmark.New(
+// 	goldmark.WithExtensions(
+// 		meta.Meta,
+// 		highlighting.NewHighlighting(
+// 			highlighting.WithStyle("monokai"),
+// 			highlighting.WithFormatOptions(
+// 				chromahtml.WithLineNumbers(true),
+// 			),
+// 		),
+// 	),
+// )
