@@ -9,7 +9,7 @@ import (
 	"path"
 
 	"github.com/yuin/goldmark"
-	// highlighting "github.com/yuin/goldmark-highlighting/v2"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	meta "github.com/yuin/goldmark-meta"
 	"github.com/yuin/goldmark/parser"
 )
@@ -38,6 +38,7 @@ func serveAboutMe(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 	}
 }
+
 func servePostsList(w http.ResponseWriter, r *http.Request) {
 	files, err := os.ReadDir("./posts")
 	if err != nil {
@@ -67,6 +68,7 @@ func servePostsList(w http.ResponseWriter, r *http.Request) {
 		metaData := meta.Get(context)
 
 		posts = append(posts, Metadata{
+			Id:          f.Name(),
 			Title:       metaData["Title"],
 			Date:        metaData["Date"],
 			Description: metaData["Description"],
@@ -80,10 +82,42 @@ func servePostsList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmp.ExecuteTemplate(w, "base.html", &TemplateData{Posts: posts})
+	err = tmp.ExecuteTemplate(w, "base.html", map[string]interface{}{"posts": posts})
 	if err != nil {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 	}
+}
+
+func servePostDetail(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+	file, err := os.ReadFile(path.Join("./posts", id))
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			meta.Meta,
+			highlighting.NewHighlighting(
+				highlighting.WithStyle("monokai"),
+			),
+		),
+	)
+
+	// markdown parsing
+	var content bytes.Buffer
+	if err = markdown.Convert(file, &content); err != nil {
+		http.Error(w, "Error laoding file", http.StatusInternalServerError)
+	}
+
+	tmpl, err := templateFromBase("./pages/posts/detail.html")
+	if err != nil {
+		http.Error(w, "Error laoding template", http.StatusInternalServerError)
+		return
+	}
+
+	tmpl.ExecuteTemplate(w, "base.html", map[string]template.HTML{"content": template.HTML(content.String())})
 }
 
 func main() {
@@ -91,10 +125,14 @@ func main() {
 	assets_path := http.FileServer(http.Dir("./assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", assets_path))
 
+	// route for serving posts media and attachments
+	posts_media_path := http.FileServer(http.Dir("./posts/media/"))
+	http.Handle("/media/", http.StripPrefix("/media/", posts_media_path))
+
 	// pages
 	http.HandleFunc("/", serveAboutMe)
 	http.HandleFunc("/posts/", servePostsList)
-	// http.HandleFunc("/posts/{id}/", servePostDetail)
+	http.HandleFunc("/posts/{id}/", servePostDetail)
 
 	log.Print("Starting server...\n")
 	log.Print("Serving in port 8000\n")
@@ -104,26 +142,11 @@ func main() {
 	}
 }
 
-type TemplateData struct {
-	Posts []Metadata
-}
-
-// NOTE: for now is not needed to cast it to some specific value and curate the data
+// NOTE: for now is not needed to cast the metadata to specific values
 type Metadata struct {
 	Title       interface{}
 	Date        interface{}
 	Description interface{}
 	Image       interface{}
+	Id          interface{}
 }
-
-// markdown2 := goldmark.New(
-// 	goldmark.WithExtensions(
-// 		meta.Meta,
-// 		highlighting.NewHighlighting(
-// 			highlighting.WithStyle("monokai"),
-// 			highlighting.WithFormatOptions(
-// 				chromahtml.WithLineNumbers(true),
-// 			),
-// 		),
-// 	),
-// )

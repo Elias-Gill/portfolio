@@ -3,7 +3,7 @@
   <div class="container">
     <h1 class="title gruvbox-magenta">Últimos Posts</h1>
     <div class="is-multiline">
-      {{ range .Posts }}
+      {{ range .posts }}
       <div class="my-4">
         <div class="card is-bordered gruvbox-secondary-bg">
           <div class="card-content gruvbox-fg">
@@ -17,7 +17,7 @@
                 <div class="level">
                   <p class="is-size-7 level-item is-justify-content-start">
                   <span class="gruvbox-magenta mr-1">Publicado: </span>{{.Date}}
-                    <a href="#post" class="ml-3 button gruvbox-orange gruvbox-primary-bg is-small">Leer más</a>
+                    <a href="/posts/{{.Id}}" class="ml-3 button gruvbox-orange gruvbox-primary-bg is-small">Leer más</a>
                   </p>
                 </div>
               </div>

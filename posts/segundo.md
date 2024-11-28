@@ -20,3 +20,9 @@ laboris cupidatat officia voluptate.
 Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod.
 Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim.
 Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+
+```bash
+if [[ -z $nada ]]; then
+    echo hola;
+fi
+```
