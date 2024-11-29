@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -14,6 +15,33 @@ import (
 	"github.com/yuin/goldmark/parser"
 )
 
+func main() {
+	// route for serving static files
+	assets_path := http.FileServer(http.Dir("./assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", assets_path))
+
+	// route for serving posts media and attachments
+	posts_media_path := http.FileServer(http.Dir("./posts/media/"))
+	http.Handle("/media/", http.StripPrefix("/media/", posts_media_path))
+
+	// pages
+	http.HandleFunc("/", serveAboutMe)
+	http.HandleFunc("/posts/", servePostsList)
+	http.HandleFunc("/posts/{id}/", servePostDetail)
+
+	log.Print("Starting server...\n")
+	log.Print("Serving in port 8000\n")
+
+	if err := http.ListenAndServe(":8000", nil); err != nil {
+		log.Fatalf("Cannot initialize server on port 8000: %s", err.Error())
+	}
+}
+
+/*
+*********************
+#		PAGES		#
+**********************
+*/
 func templateFromBase(names ...string) (*template.Template, error) {
 	templates := append(names, "./templates/base.html", "./templates/footer.html", "./templates/navbar.html")
 
@@ -45,35 +73,13 @@ func servePostsList(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("Cannot open posts folder")
 	}
 
-	markdown := goldmark.New(
-		goldmark.WithExtensions(
-			meta.Meta,
-		),
-	)
-
-	// Extract files metadata
 	var posts []Metadata
 	for _, f := range files {
-		content, err := os.ReadFile(path.Join("./posts", f.Name()))
+		data, err := extractMetaFromDirEntry(f)
 		if err != nil {
 			continue
 		}
-
-		// extract file metadata
-		var buf bytes.Buffer
-		context := parser.NewContext()
-		if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
-			panic(err)
-		}
-		metaData := meta.Get(context)
-
-		posts = append(posts, Metadata{
-			Id:          f.Name(),
-			Title:       metaData["Title"],
-			Date:        metaData["Date"],
-			Description: metaData["Description"],
-			Image:       metaData["Image"],
-		})
+		posts = append(posts, *data)
 	}
 
 	tmp, err := templateFromBase("./pages/posts/list.html")
@@ -100,7 +106,7 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 		goldmark.WithExtensions(
 			meta.Meta,
 			highlighting.NewHighlighting(
-				highlighting.WithStyle("monokai"),
+				highlighting.WithStyle("vim"),
 			),
 		),
 	)
@@ -111,42 +117,98 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error laoding file", http.StatusInternalServerError)
 	}
 
+	data, err := extractMetaFromFile(id)
+	if err = markdown.Convert(file, &content); err != nil {
+		http.Error(w, "Error laoding file", http.StatusInternalServerError)
+	}
+
+	// template generation
 	tmpl, err := templateFromBase("./pages/posts/detail.html")
 	if err != nil {
 		http.Error(w, "Error laoding template", http.StatusInternalServerError)
 		return
 	}
 
-	tmpl.ExecuteTemplate(w, "base.html", map[string]template.HTML{"content": template.HTML(content.String())})
-}
-
-func main() {
-	// route for serving static files
-	assets_path := http.FileServer(http.Dir("./assets"))
-	http.Handle("/assets/", http.StripPrefix("/assets/", assets_path))
-
-	// route for serving posts media and attachments
-	posts_media_path := http.FileServer(http.Dir("./posts/media/"))
-	http.Handle("/media/", http.StripPrefix("/media/", posts_media_path))
-
-	// pages
-	http.HandleFunc("/", serveAboutMe)
-	http.HandleFunc("/posts/", servePostsList)
-	http.HandleFunc("/posts/{id}/", servePostDetail)
-
-	log.Print("Starting server...\n")
-	log.Print("Serving in port 8000\n")
-
-	if err := http.ListenAndServe(":8000", nil); err != nil {
-		log.Fatalf("Cannot initialize server on port 8000: %s", err.Error())
+	post := Post{
+		Content: template.HTML(content.String()),
+		Meta:    data,
 	}
+	tmpl.ExecuteTemplate(w, "base.html", &post)
+
+	log.Print("Cargando post")
 }
 
-// NOTE: for now is not needed to cast the metadata to specific values
+/*********************
+#		Utils		#
+**********************/
+// NOTE: for now is not needed to cast the metadata to specific data types
 type Metadata struct {
 	Title       interface{}
 	Date        interface{}
 	Description interface{}
 	Image       interface{}
 	Id          interface{}
+}
+
+type Post struct {
+	Content template.HTML
+	Meta    *Metadata
+}
+
+func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
+	content, err := os.ReadFile(path.Join("./posts", file.Name()))
+	if err != nil {
+		return nil, err
+	}
+
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			meta.Meta,
+		),
+	)
+
+	// extract file metadata
+	var buf bytes.Buffer
+	context := parser.NewContext()
+	if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
+		panic(err)
+	}
+	metaData := meta.Get(context)
+
+	return &Metadata{
+		Id:          file.Name(),
+		Title:       metaData["Title"],
+		Date:        metaData["Date"],
+		Description: metaData["Description"],
+		Image:       metaData["Image"],
+	}, nil
+}
+
+func extractMetaFromFile(file string) (*Metadata, error) {
+	content, err := os.ReadFile(path.Join("./posts", file))
+	if err != nil {
+		return nil, err
+	}
+
+	markdown := goldmark.New(
+		goldmark.WithExtensions(
+			meta.Meta,
+		),
+	)
+
+	// extract file metadata
+	var buf bytes.Buffer
+	context := parser.NewContext()
+	if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
+		panic(err)
+	}
+	metaData := meta.Get(context)
+
+	return &Metadata{
+		Id:          file,
+		Title:       metaData["Title"],
+		Date:        metaData["Date"],
+		Description: metaData["Description"],
+		Image:       metaData["Image"],
+	}, nil
 }

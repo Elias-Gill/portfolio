@@ -1,34 +1,61 @@
-.content-wrapper {
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #fff;
-}
-
+/* Estilos generales para el contenido Markdown */
 .markdown-content {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.7;
-    color: #333;
+    font-family: "Fira Code", "Courier New", monospace;
+    line-height: 1.6;
+    color: #ebdbb2;
+    /* Texto claro sobre fondo oscuro */
+    background-color: #282828;
+    /* Fondo oscuro */
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 1em;
+    border-radius: 3px;
 }
 
+/* Encabezados */
 .markdown-content h1,
 .markdown-content h2,
 .markdown-content h3,
 .markdown-content h4,
 .markdown-content h5,
 .markdown-content h6 {
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    border-bottom: 1px solid #eaecef;
-    padding-bottom: 0.3rem;
+    color: #ebdbb2;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
 }
 
+.markdown-content h1 {
+    font-size: 2.25em;
+    border-bottom: 2px solid #d79921;
+    /* Color amarillo para h1 */
+    padding-bottom: 0.25em;
+}
+
+.markdown-content h2 {
+    font-size: 1.75em;
+    border-bottom: 1px solid #b16286;
+    /* Color morado para h2 */
+    padding-bottom: 0.2em;
+}
+
+.markdown-content h3 {
+    font-size: 1.5em;
+    color: #8ec07c;
+    /* Verde claro para h3 */
+}
+
+/* Párrafos */
 .markdown-content p {
-    margin-bottom: 1rem;
+    margin: 1em 0;
+    font-size: 1.1em;
 }
 
+/* Enlaces */
 .markdown-content a {
-    color: #007bff;
+    color: #458588;
+    /* Azul */
     text-decoration: none;
 }
 
@@ -36,104 +63,82 @@
     text-decoration: underline;
 }
 
-.markdown-content img {
-    border-radius: 8px;
-    max-width: 70%;
-    width: 70%;
-    height: auto;
-    margin: 4rem 0;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+/* Listas */
 .markdown-content ul,
 .markdown-content ol {
-    margin-bottom: 1rem;
-    padding-left: 2rem;
+    margin: 1em 0;
+    padding-left: 1.5em;
 }
 
 .markdown-content li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
 }
 
+/* Citas (Blockquotes) */
 .markdown-content blockquote {
-    padding: 0.5rem 1rem;
-    margin: 1rem 0;
-    border-left: 4px solid #dfe2e5;
-    color: #6a737d;
-    background-color: #f6f8fa;
+    border-left: 4px solid #b16286;
+    /* Morado para citas */
+    padding-left: 1em;
+    color: #ebdbb2;
+    /* Blanco */
+    font-style: italic;
+    margin: 1em 0;
+    background-color: #3c3836;
+    /* Fondo gris para citas */
+}
+
+/* Código */
+.markdown-content pre,
+.markdown-content code {
+    font-family: "Fira Code", "Courier New", monospace;
+    font-size: 0.95em;
+    background: #3c3836;
+    /* Fondo gris para bloques de código */
+    /* Bordes gris oscuro */
+    color: #ebdbb2;
 }
 
 .markdown-content pre {
-    background-color: #f6f8fa;
-    padding: 1rem;
-    border-radius: 6px;
+    border: 1px solid #504945;
+    border-radius: 3px;
     overflow-x: auto;
-    border: 1px solid #d1d5da;
-    margin: 1rem 0;
+    padding: 1em;
 }
 
+/* Tablas */
 .markdown-content table {
-    width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1rem;
+    margin: 1em 0;
+    width: 100%;
+    background-color: #3c3836;
+    /* Fondo gris para tablas */
 }
 
 .markdown-content th,
 .markdown-content td {
-    border: 1px solid #d1d5da;
-    padding: 0.6rem;
+    border: 1px solid #504945;
+    /* Bordes gris oscuro */
+    padding: 0.75em;
     text-align: left;
 }
 
 .markdown-content th {
-    background-color: #f6f8fa;
-    font-weight: 600;
+    background-color: #282828;
+    /* Fondo más oscuro para los encabezados de la tabla */
+    color: #d79921;
+    /* Amarillo para los encabezados */
+    font-weight: bold;
 }
 
-.markdown-content hr {
-    border: 0;
-    border-top: 1px solid #eaecef;
-    margin: 1rem 0;
-}
-
-/* Estilos para las imágenes dentro de los enlaces generados por Markdown */
-a img {
-    max-width: 100%;
+/* Imágenes */
+.markdown-content img {
+    max-width: 60%;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-}
-
-a img:hover {
-    transform: scale(0.97);
-    transition: transform 0.3s ease;
-}
-
-.text-container {
-    padding-left: 15px;
-    /* Ajustar el padding para texto */
-    z-index: 2;
-    background-color: rgba(255, 255, 255, 0.8);
-    /* Fondo semitransparente para texto */
-    border-radius: 8px;
-    /* Bordes redondeados */
-}
-
-.post-featured {
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-.fw-bold {
-    transition: transform 0.3s ease;
-    color: #000000;
-}
-
-.fw-bold:hover {
-    color: #454545;
-
+    display: block;
+    margin: 1em auto;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .card-container {
@@ -146,138 +151,6 @@ a img:hover {
 .card-container img {
     transition: transform 0.3s ease;
     /* Suavizar la escala de la imagen */
-}
-
-.card-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* Cubrir todo el ancho del contenedor */
-    height: 100%;
-    /* Cubrir toda la altura del contenedor */
-    background-color: rgba(255, 255, 255, 0);
-    transition: background-color 0.3s ease;
-    z-index: 2;
-    pointer-events: none;
-    /* Evitar que capture eventos de clic */
-}
-
-.card-container:hover::after {
-    background-color: rgba(255, 255, 255, 0.39);
-    /* Aparece el overlay */
-}
-
-.card-container:hover img {
-    transform: scale(0.98);
-    /* Escalar ligeramente la imagen */
-}
-
-.card-container:hover {
-    transform: scale(0.98);
-    /* Escalar toda la tarjeta */
-}
-
-/*Categorias */
-
-/* Estilo general para la etiqueta */
-.badge-type {
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-}
-
-/* Estilo para categoría Gratis */
-.gratis {
-    background-color: rgb(4, 102, 4);
-}
-
-/* Estilo para categoría Suscripcion */
-.suscripcion {
-    background-color: rgb(93, 1, 93);
-}
-
-/* Estilo para categoría Premium */
-.premium {
-    background-color: goldenrod;
-    /* Cambia el color del texto para contraste */
-}
-
-/*navbar*/
-header {
-    background-color: #000000;
-}
-
-.navbar-left {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    color: rgb(255, 255, 255);
-}
-
-
-.subscribe {
-    background-color: white;
-}
-
-.navbar-middle {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: rgb(255, 255, 255);
-    font-size: 65px;
-}
-
-.navbar-middle .navbar-slogan {
-    display: block;
-    font-size: 25px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-}
-
-.navbar-right {
-    display: flex;
-    gap: 15px;
-}
-
-.navbar-right .subscribe {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 3px;
-    font-size: 14px;
-    border: 1px solid #ffffff;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.navbar-right .login {
-    color: rgb(255, 255, 255);
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
-.navbar-right .subscribe:hover,
-.navbar-right .login:hover {
-    background-color: #333333;
-    border-color: #1f1f1f;
-    color: #fff;
-}
-
-.today-paper {
-    font-size: 12px;
 }
 
 #search-icon {
@@ -308,253 +181,4 @@ header {
 
 #headerTitle {
     margin-right: 10px;
-}
-
-/*ADMIN PANEL*/
-
-/*user_list*/
-.user-list-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #2e2e2e;
-    /* Gris oscuro plateado */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), 0 0 15px rgba(0, 0, 0, 0.5);
-    /* Añade un leve efecto metálico */
-}
-
-.user-list-container .title {
-    font-size: 36px;
-    color: #d9d9d9;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.user-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.user-table th,
-.user-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.user-table th {
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bold;
-}
-
-.user-table tr:hover {
-    background-color: #646566;
-}
-
-.actions a {
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-right: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.actions .edit-btn {
-    background-color: #000000;
-    color: #fff;
-}
-
-.actions .edit-btn:hover {
-    background-color: #000000;
-}
-
-.actions .delete-btn {
-    background-color: #000000;
-    color: #fff;
-}
-
-.actions .delete-btn:hover {
-    background-color: #1c1c1c;
-}
-
-.actions .group-btn {
-    background-color: #000000;
-    color: #fff;
-}
-
-.actions .group-btn:hover {
-    background-color: #1c1c1c;
-    color: #fff;
-}
-
-/*user_confirm_delete*/
-
-.delete-user-container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #ffffff;
-    /* Gris oscuro plateado */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), 0 0 15px rgba(0, 0, 0, 0.5);
-    color: #ffffff;
-    text-align: center;
-}
-
-.delete-user-title {
-    font-size: 28px;
-    margin-bottom: 20px;
-
-}
-
-.delete-user-message {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
-
-.delete-user-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.delete-button {
-    background-color: #000000;
-    /* Color rojo para el botón de eliminación */
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-.delete-button:hover {
-    background-color: #181818;
-    /* Un tono más oscuro en hover */
-}
-
-.cancel-button {
-
-    /* Color gris oscuro para el botón de cancelar */
-    color: #ffffff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-.cancel-button:hover {
-    background-color: #1a1a1a;
-    /* Un tono más oscuro en hover */
-}
-
-/*user_form*/
-.user-form-container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #2e2e2e;
-    /* Gris oscuro plateado */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), 0 0 15px rgba(0, 0, 0, 0.5);
-    color: #ffffff;
-}
-
-.user-form-title {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #a0a0a0;
-    /* Azul suave para el título */
-    text-align: center;
-}
-
-.user-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-form p {
-    margin-bottom: 15px;
-}
-
-.user-form-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.save-button {
-    background-color: #000000;
-    /* Verde para el botón de guardar */
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-.save-button:hover {
-    background-color: #1a1a1a;
-    /* Un tono más oscuro en hover */
-}
-
-.cancel-button {
-    background-color: #000000;
-    /* Gris oscuro para el botón de cancelar */
-    color: #ffffff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-.cancel-button:hover {
-    background-color: #1a1a1a;
-    /* Un tono más oscuro en hover */
-}
-
-/*manage_user_groups.html*/
-.group-management-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #2e2e2e;
-    /* Gris oscuro plateado */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), 0 0 15px rgba(0, 0, 0, 0.5);
-    /* Añade un leve efecto metálico */
-}
-
-.group-management-container .title {
-    font-size: 36px;
-    color: #d9d9d9;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.group-management-container .form-group {
-    margin-bottom: 20px;
-}
-
-.group-management-container .save-btn {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
