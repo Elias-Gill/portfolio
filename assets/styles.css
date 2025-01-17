@@ -1,184 +1,217 @@
-/* Estilos generales para el contenido Markdown */
-.markdown-content {
-    font-family: "Fira Code", "Courier New", monospace;
-    line-height: 1.6;
-    color: #ebdbb2;
-    /* Texto claro sobre fondo oscuro */
-    background-color: #282828;
-    /* Fondo oscuro */
-    max-width: 100%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    padding: 1em;
-    border-radius: 3px;
+/* ---- Gruvbox Color Palette ------ */
+:root {
+    --gruvbox-bg: #282828;
+    /* Dark0 - Main background */
+    --gruvbox-fg: #ebdbb2;
+    /* Light1 - Main foreground text */
+    --gruvbox-magenta: #d3869b;
+    /* Bright Magenta */
+    --gruvbox-cyan: #83a598;
+    /* Bright Cyan */
+    --gruvbox-orange: #fabd2f;
+    /* Bright Orange */
+    --gruvbox-yellow: #b8bb26;
+    /* Bright Yellow */
+    --gruvbox-green: #8ec07c;
+    /* Bright Green */
+    --gruvbox-red: #fb4934;
+    /* Bright Red */
+    --gruvbox-blue: #458588;
+    /* Bright Blue */
+
+    --gruvbox-secondary-bg: #3c3836;
+    --gruvbox-secondary-fg: #a89984;
+    /* A muted, less bright color */
 }
 
-/* Encabezados */
-.markdown-content h1,
-.markdown-content h2,
-.markdown-content h3,
-.markdown-content h4,
-.markdown-content h5,
-.markdown-content h6 {
-    color: #ebdbb2;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-    font-weight: bold;
+/* Background and Text Colors */
+.gruvbox-bg {
+    background-color: var(--gruvbox-bg);
 }
 
-.markdown-content h1 {
-    font-size: 2.25em;
-    border-bottom: 2px solid #d79921;
-    /* Color amarillo para h1 */
-    padding-bottom: 0.25em;
+.gruvbox-fg {
+    color: var(--gruvbox-fg);
 }
 
-.markdown-content h2 {
-    font-size: 1.75em;
-    border-bottom: 1px solid #b16286;
-    /* Color morado para h2 */
-    padding-bottom: 0.2em;
+.gruvbox-secondary-bg {
+    background-color: var(--gruvbox-secondary-bg);
 }
 
-.markdown-content h3 {
-    font-size: 1.5em;
-    color: #8ec07c;
-    /* Verde claro para h3 */
+/* Accent Colors */
+.gruvbox-magenta {
+    color: var(--gruvbox-magenta);
 }
 
-/* Párrafos */
-.markdown-content p {
-    margin: 1em 0;
-    font-size: 1.1em;
+.gruvbox-cyan {
+    color: var(--gruvbox-cyan);
 }
 
-/* Enlaces */
-.markdown-content a {
-    color: #458588;
-    /* Azul */
+.gruvbox-orange {
+    color: var(--gruvbox-orange);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-body .columns {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-body .column {
+        width: 100%;
+    }
+
+    .card {
+        margin-top: 20px;
+    }
+}
+
+/* Make the entire card clickable */
+a.card {
+    display: block;
+    /* Ensure the link takes up the full card space */
     text-decoration: none;
+    /* Remove underline */
+    color: inherit;
+    /* Inherit text color */
 }
 
-.markdown-content a:hover {
-    text-decoration: underline;
+/* Card Hover Effect */
+a.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Listas */
-.markdown-content ul,
-.markdown-content ol {
-    margin: 1em 0;
-    padding-left: 1.5em;
+/* Button Styles (now a span inside the card) */
+.button.gruvbox-orange {
+    background-color: var(--gruvbox-orange);
+    color: var(--gruvbox-bg);
+    border: none;
+    cursor: pointer;
+    /* Show pointer cursor */
 }
 
-.markdown-content li {
-    margin-bottom: 0.5em;
-    font-size: 1.1em;
+.button.gruvbox-orange:hover {
+    background-color: var(--gruvbox-yellow);
+    color: var(--gruvbox-bg);
 }
 
-/* Citas (Blockquotes) */
-.markdown-content blockquote {
-    border-left: 4px solid #b16286;
-    /* Morado para citas */
-    padding-left: 1em;
-    color: #ebdbb2;
-    /* Blanco */
-    font-style: italic;
-    margin: 1em 0;
-    background-color: #3c3836;
-    /* Fondo gris para citas */
+/* Media Image */
+.media-left .image {
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Código */
-.markdown-content pre,
-.markdown-content code {
-    font-family: "Fira Code", "Courier New", monospace;
-    font-size: 0.95em;
-    background: #3c3836;
-    /* Fondo gris para bloques de código */
-    /* Bordes gris oscuro */
-    color: #ebdbb2;
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .media {
+        flex-direction: column;
+        /* Stack image and content vertically */
+        align-items: center;
+        text-align: center;
+    }
+
+    .media-left .image {
+        margin-bottom: 1rem;
+        /* Add spacing between image and content */
+    }
 }
 
-.markdown-content pre {
-    border: 1px solid #504945;
-    border-radius: 3px;
-    overflow-x: auto;
-    padding: 1em;
+/* --- NAV-BAR MENU --- */
+
+/* Navbar Styles */
+#navbar {
+  left: 0;
+  width: 100%;
+  transition: top 0.3s ease; /* Smooth transition */
+  z-index: 1000; /* Ensure it stays above other content */
+  top: 0;
 }
 
-/* Tablas */
-.markdown-content table {
-    border-collapse: collapse;
-    margin: 1em 0;
+/* Burger Menu Styles */
+.navbar-burger {
+  color: var(--gruvbox-fg); /* Match the burger menu color to the navbar text */
+}
+
+.navbar-burger span {
+  background-color: var(--gruvbox-fg); /* Color of the burger menu lines */
+  transition: all 0.3s ease;
+}
+
+/* --- BLOG POSTS LIST --- */
+
+/* Card Styles */
+.card.is-bordered {
+    border: 1px solid var(--gruvbox-fg);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.is-bordered:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Image */
+.media-left .image {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Button Styles */
+.button.gruvbox-orange {
+    background-color: var(--gruvbox-orange);
+    color: var(--gruvbox-bg);
+    border: none;
+}
+
+.button.gruvbox-orange:hover {
+    background-color: var(--gruvbox-yellow);
+    color: var(--gruvbox-bg);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .column.is-one-third {
+        width: 100%;
+        /* Stack cards vertically on smaller screens */
+    }
+
+    .media {
+        flex-direction: column;
+        /* Stack image and content vertically */
+        align-items: center;
+        text-align: center;
+    }
+
+    .media-left .image {
+        margin-bottom: 1rem;
+        /* Add spacing between image and content */
+    }
+}
+
+/* Card Styling */
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-image img {
     width: 100%;
-    background-color: #3c3836;
-    /* Fondo gris para tablas */
-}
-
-.markdown-content th,
-.markdown-content td {
-    border: 1px solid #504945;
-    /* Bordes gris oscuro */
-    padding: 0.75em;
-    text-align: left;
-}
-
-.markdown-content th {
-    background-color: #282828;
-    /* Fondo más oscuro para los encabezados de la tabla */
-    color: #d79921;
-    /* Amarillo para los encabezados */
-    font-weight: bold;
-}
-
-/* Imágenes */
-.markdown-content img {
-    max-width: 60%;
     height: auto;
     display: block;
-    margin: 1em auto;
-    border-radius: 3px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.card-container {
-    position: relative;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    overflow: hidden;
-    /* Evitar que los elementos dentro del contenedor se salgan */
+/* --- Footer Styles --- */
+.footer {
+    background-color: var(--gruvbox-secondary-bg);
+    border-top: 1px solid rgba(235, 219, 178, 0.2); /* Subtle border with opacity */
+    padding: 1.5rem 0; /* Adjust padding */
 }
 
-.card-container img {
-    transition: transform 0.3s ease;
-    /* Suavizar la escala de la imagen */
-}
-
-#search-icon {
-    cursor: pointer;
-}
-
-#search-input {
-    width: 0;
-    transition: width 0.4s ease-in-out;
-}
-
-#search-input.show {
-    width: 200px;
-    display: inline-block;
-}
-
-#headerContent {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 18px;
-}
-
-#headerContent a {
-    color: rgb(255, 255, 255);
-}
-
-#headerTitle {
-    margin-right: 10px;
+.footer p {
+    color: var(--gruvbox-fg);
+    font-size: 0.9rem; /* Smaller font size */
+    margin: 0; /* Remove default margin */
 }

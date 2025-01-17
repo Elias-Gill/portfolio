@@ -1,0 +1,75 @@
+/* Box Styles */
+.box {
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+/* Title Styles */
+.title.is-1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Markdown Content Styles */
+.markdown-content {
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+    color: var(--gruvbox-cyan);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.markdown-content p {
+    margin-bottom: 1rem;
+}
+
+.markdown-content a {
+    color: var(--gruvbox-orange);
+    text-decoration: underline;
+}
+
+.markdown-content a:hover {
+    color: var(--gruvbox-yellow);
+}
+
+.markdown-content code {
+    background-color: var(--gruvbox-bg);
+    color: var(--gruvbox-green);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.markdown-content pre {
+    background-color: var(--gruvbox-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid var(--gruvbox-cyan);
+    padding-left: 1rem;
+    color: var(--gruvbox-fg);
+    margin: 1.5rem 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .column.is-8 {
+        width: 100%;
+        /* Full width on smaller screens */
+    }
+
+    .title.is-1 {
+        font-size: 2rem;
+        /* Smaller title on smaller screens */
+    }
+}

@@ -1,22 +1,23 @@
-{{define "content"}}
+{{ define "content" }}
 <!-- Importa estilos adicionales para Markdown si es necesario -->
-<link rel="stylesheet" href="/assets/styles.css">
-<div class="section">
+<link rel="stylesheet" href="/assets/markdown.css">
+<section class="section is-fullheight gruvbox-bg">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-10">
-        <div class="box">
-          <!-- Información del post -->
+        <!-- Box for the post -->
+        <div class="box gruvbox-secondary-bg">
+          <!-- Post Information -->
           <div class="mb-5">
-            <h1 class="title is-1 has-text-weight-bold mb-3">{{ .Meta.Title }}</h1>
-            <p>
+            <h1 class="title is-1 has-text-weight-bold gruvbox-magenta mb-4">{{ .Meta.Title }}</h1>
+            <p class="gruvbox-fg">
               <small>
-                Fecha de publicacion: {{ .Meta.Date }}
+                Fecha de publicación: <span class="gruvbox-cyan">{{ .Meta.Date }}</span>
               </small>
             </p>
-            <hr>
-            <!-- Contenido del post -->
-            <div class="markdown-content">
+            <hr class="gruvbox-fg">
+            <!-- Post Content -->
+            <div class="markdown-content gruvbox-fg">
               {{ .Content }}
             </div>
           </div>
@@ -24,5 +25,5 @@
       </div>
     </div>
   </div>
-</div>
-{{end}}
+</section>
+{{ end }}

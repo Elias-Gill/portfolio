@@ -1,169 +1,215 @@
 {{ define "projects" }}
 <style>
-    .is-bordered {
-        border: 1px solid #ebdbb222;
-    }
+  /* General Styles */
+  .is-bordered {
+    border: 1px solid var(--gruvbox-secondary-fg);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .message-header {
+    background-color: var(--gruvbox-primary-bg);
+    color: var(--gruvbox-cyan);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  .message-body {
+    background-color: var(--gruvbox-secondary-bg);
+    color: var(--gruvbox-fg);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  /* Slider Styles */
   .slider {
-      width: 300px;
-      text-align: center;
-      overflow: hidden;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 1rem;
   }
 
   .slides {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      /*
-      scroll-snap-points-x: repeat(300px);
-      scroll-snap-type: mandatory;
-      */
-  }
-
-  .slides::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-  }
-
-  .slides::-webkit-scrollbar-thumb {
-      background: black;
-      border-radius: 10px;
-  }
-
-  .slides::-webkit-scrollbar-track {
-      background: transparent;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
   }
 
   .slides > div {
-      scroll-snap-align: start;
-      flex-shrink: 0;
-      width: 300px;
-      height: 300px;
-      margin-right: 50px;
-      border-radius: 10px;
-      background: #eee;
-      transform-origin: center center;
-      transform: scale(1);
-      transition: transform 0.5s;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 100px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: 100%;
+    height: 200px;
+    margin-right: 1rem;
+    border-radius: 8px;
+    background: var(--gruvbox-bg);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .slides > div:target {
-      /*   transform: scale(0.8); */
+  .slides img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
   }
 
-  img {
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-  }
-
+  /* Slider Navigation Styles */
   .slider > a {
-      display: inline-flex;
-      width: 1.5rem;
-      height: 1.5rem;
-      border: 1px solid #ebdbb211;
-      background: #282828;
-      text-decoration: none;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin: 0 0 0.5rem 0;
-      position: relative;
+    display: inline-block;
+    width: 10px; /* Smaller circle size */
+    height: 10px; /* Smaller circle size */
+    background: var(--gruvbox-fg); /* Default circle color */
+    border-radius: 50%; /* Make it a circle */
+    margin: 0.5rem; /* Spacing between circles */
+    transition: background 0.3s ease; /* Smooth transition */
+    text-indent: -9999px; /* Hide the text (numbers) */
+    overflow: hidden; /* Ensure the text is hidden */
   }
 
-  .slider > a:active {
-      top: 111px;
-  }
-
+  /* Active/Hover State */
+  .slider > a:hover,
   .slider > a:focus {
-      background: #000;
+    background: var(--gruvbox-cyan); /* Change color on hover/focus */
   }
 
-  /* Don't need button navigation */
-  @supports (scroll-snap-type) {
-      .slider > a {
-          display: none;
-      }
+  /* Active Slide Indicator */
+  .slider > a[aria-current="true"] {
+    background: var(--gruvbox-orange); /* Highlight the active slide */
+  }
+
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .columns {
+      flex-direction: column;
+    }
+
+    .slides > div {
+      height: 150px;
+    }
   }
 </style>
-  <div class="columns">
-    <div class="column">
-      <article class="message is-bordered">
-        <div class="message-header gruvbox-primary-bg gruvbox-cyan">
-          <p>Walldo</p>
-        </div>
-        <div class="message-body gruvbox-secondary-bg">
-          <div class="slider mb-5">
-            <a href="#walldo-1">1</a>
-            <a href="#walldo-2">2</a>
-            <div class="slides">
-              <div id="walldo-1">
-                <img src="/assets/projects/walldo_1.png" alt="walldo_1">
-              </div>
-              <div id="walldo-2">
-                <img src="/assets/projects/walldo_2.png" alt="walldo_1">
-              </div>
+<div class="columns is-multiline">
+  <!-- Project 1: Walldo -->
+  <div class="column is-one-third">
+    <article class="message is-bordered">
+      <div class="message-header">
+        <p>Walldo</p>
+      </div>
+      <div class="message-body">
+        <div class="slider">
+          <a href="#walldo-1" aria-label="Slide 1"></a>
+          <a href="#walldo-2" aria-label="Slide 2"></a>
+          <div class="slides">
+            <div id="walldo-1">
+              <img src="/assets/projects/walldo_1.png" alt="Walldo 1">
+            </div>
+            <div id="walldo-2">
+              <img src="/assets/projects/walldo_2.png" alt="Walldo 2">
             </div>
           </div>
-          <p>
-            Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. </p>
         </div>
-      </article>
-    </div>
-    <div class="column">
-      <article class="message is-bordered">
-        <div class="message-header gruvbox-primary-bg gruvbox-cyan">
-          <p>Interprete REPL</p>
-        </div>
-        <div class="message-body gruvbox-secondary-bg">
-          <div class="slider mb-5">
-            <a href="#interprete-1">1</a>
-            <a href="#interprete-2">2</a>
-            <div class="slides">
-              <div id="interprete-1">
-                <img src="/assets/projects/walldo_1.png" alt="walldo_1">
-              </div>
-              <div id="interprete-2">
-                <img src="/assets/projects/walldo_2.png" alt="walldo_1">
-              </div>
+        <p class="mt-3">
+          Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.
+        </p>
+      </div>
+    </article>
+  </div>
+  <!-- Project 2: Interprete REPL -->
+  <div class="column is-one-third">
+    <article class="message is-bordered">
+      <div class="message-header">
+        <p>Interprete REPL</p>
+      </div>
+      <div class="message-body">
+        <div class="slider">
+          <a href="#interprete-1" aria-label="Slide 1"></a>
+          <a href="#interprete-2" aria-label="Slide 2"></a>
+          <div class="slides">
+            <div id="interprete-1">
+              <img src="/assets/projects/interprete_1.png" alt="Interprete 1">
+            </div>
+            <div id="interprete-2">
+              <img src="/assets/projects/interprete_2.png" alt="Interprete 2">
             </div>
           </div>
-          <p>
-            Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. </p>
         </div>
-      </article>
-    </div>
-    <div class="column">
-      <article class="message is-bordered">
-        <div class="message-header gruvbox-primary-bg gruvbox-cyan">
-          <p>Simulador de fluidos</p>
-        </div>
-        <div class="message-body gruvbox-secondary-bg">
-          <div class="slider mb-5">
-            <a href="#simulador-1">1</a>
-            <a href="#simulador-2">2</a>
-            <div class="slides">
-              <div id="simulador-1">
-                <img src="/assets/projects/walldo_1.png" alt="walldo_1">
-              </div>
-              <div id="simulador-2">
-                <img src="/assets/projects/walldo_2.png" alt="walldo_1">
-              </div>
+        <p class="mt-3">
+          Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.
+        </p>
+      </div>
+    </article>
+  </div>
+  <!-- Project 3: Simulador de fluidos -->
+  <div class="column is-one-third">
+    <article class="message is-bordered">
+      <div class="message-header">
+        <p>Simulador de fluidos</p>
+      </div>
+      <div class="message-body">
+        <div class="slider">
+          <a href="#simulador-1" aria-label="Slide 1"></a>
+          <a href="#simulador-2" aria-label="Slide 2"></a>
+          <div class="slides">
+            <div id="simulador-1">
+              <img src="/assets/projects/simulador_1.png" alt="Simulador 1">
+            </div>
+            <div id="simulador-2">
+              <img src="/assets/projects/simulador_2.png" alt="Simulador 2">
             </div>
           </div>
-          <p>
-            Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. </p>
         </div>
-      </article>
-    </div>
+        <p class="mt-3">
+          Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.
+        </p>
+      </div>
+    </article>
+  </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Get all sliders on the page
+    const sliders = document.querySelectorAll('.slider');
+
+    sliders.forEach(slider => {
+      const slides = slider.querySelector('.slides');
+      const navLinks = slider.querySelectorAll('a');
+
+      // Add scroll event listener to the slides container
+      slides.addEventListener('scroll', () => {
+        const scrollPosition = slides.scrollLeft;
+        const slideWidth = slides.clientWidth;
+
+        // Calculate the active slide index
+        const activeIndex = Math.round(scrollPosition / slideWidth);
+
+        // Update the active state of the navigation circles
+        navLinks.forEach((link, index) => {
+          if (index === activeIndex) {
+            link.setAttribute('aria-current', 'true');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      });
+
+      // Add click event listeners to the navigation circles
+      navLinks.forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const slideWidth = slides.clientWidth;
+          slides.scrollTo({
+            left: index * slideWidth,
+            behavior: 'smooth',
+          });
+        });
+      });
+    });
+  });
+</script>
 {{ end }}

@@ -1,24 +1,40 @@
 {{ define "content" }}
-<section class="hero is-fullheight">
+<!-- Hero Section -->
+<section class="hero is-fullheight gruvbox-bg">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title gruvbox-magenta">Bienvenido !!!</h1>
-      <h2 class="content pr-6">
-        <p>
-          Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
-        </p>
-      </h2>
-      <h2 class="title is-6 gruvbox-cyan">Tecnologias</h2>
-      {{ block "tecnologias" . }} {{ end }}
-    </div>
-    <div class="card">
-      <img src="/assets/yo.jpg" alt="Mi perfil" class="card-image">
+      <div class="columns is-vcentered">
+        <!-- Left Column: Text Content -->
+        <div class="column is-two-thirds">
+          <h1 class="title is-1 gruvbox-magenta">Bienvenido !!!</h1>
+          <div class="content pr-6 gruvbox-fg">
+            <p>
+              Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+            </p>
+          </div>
+          <h2 class="title is-4 gruvbox-cyan">Tecnologias</h2>
+          {{ block "tecnologias" . }} {{ end }}
+        </div>
+
+        <!-- Right Column: Profile Image -->
+        <div class="column">
+          <div class="card gruvbox-secondary-bg">
+            <div class="card-image">
+              <figure class="image is-square">
+                <img src="/assets/yo.jpg" alt="Mi perfil">
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-<section class="section">
+
+<!-- Projects Section -->
+<section class="section gruvbox-bg">
   <div class="container">
-    <h1 class="title gruvbox-orange" id="proyectos">Mis proyectos</h1>
+    <h1 class="title is-2 gruvbox-orange" id="proyectos">Mis proyectos</h1>
     {{ block "projects" . }} {{ end }}
   </div>
 </section>

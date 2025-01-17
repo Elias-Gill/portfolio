@@ -6,50 +6,7 @@
     <title>Minimal Landing Page</title>
     <link rel="stylesheet" href="/assets/bulma/bulma.min.css">
     <!-- gruvbox colorscheme for the website -->
-    <style>
-      .icon {
-          fill: currentColor; /* Makes the SVG inherit the text color */
-          width: 24px; /* Adjust size */
-          height: 24px;
-          vertical-align: middle; /* Aligns with text */
-          transition: all 0.3s ease;
-      }
-
-      .icon:hover {
-          box-shadow: 0 0 15px rgba(0, 255, 0, 0.8); /* Resplandor verde */
-          transform: scale(1.05); /* Escala ligeramente el elemento para un efecto extra */
-      }
-
-      /* Background and Base Colors */
-      .gruvbox-bg {
-          background-color: #282828; /* Dark0 - Main background */
-      }
-      .gruvbox-fg {
-          color: #ebdbb2; /* Light1 - Main foreground text */
-      }
-
-      /* Accent Colors */
-      .gruvbox-cyan {
-          color: #83a598; /* Bright Yellow - Buttons/Links */
-      }
-      .gruvbox-orange {
-          color: #fabd2f; /* Bright Blue - Emphasis */
-      }
-      .gruvbox-magenta {
-          color: #d3869b; /* Bright Yellow - Buttons/Links */
-      }
-
-      /* Accent Colors */
-      .gruvbox-primary-bg {
-          background-color: #3b3b3e; /* Bright Yellow - Buttons/Links */
-      }
-      .gruvbox-secondary-bg {
-          background-color: #202020; /* Bright Green - Highlights */
-      }
-      .gruvbox-accent-bg {
-          background-color: #83a598; /* Bright Blue - Emphasis */
-      }
-    </style>
+    <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body class="gruvbox-fg gruvbox-bg">
     {{ block "navbar" . }}{{ end }}

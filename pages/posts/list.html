@@ -1,32 +1,35 @@
-{{define "content"}}
-<section class="section is-fullheight">
+{{ define "content" }}
+<section class="section is-fullheight gruvbox-bg">
   <div class="container">
     <h1 class="title gruvbox-magenta">Últimos Posts</h1>
-    <div class="is-multiline">
+    <div class="posts-list">
       {{ range .posts }}
-      <div class="my-4">
-        <div class="card is-bordered gruvbox-secondary-bg">
-          <div class="card-content gruvbox-fg">
-            <div class="media">
-              <figure class="media-left">
-                <img src="{{ .Image }}" alt="{{ .Image }}" class="image is-128x128">
-              </figure>
-              <div class="media-content">
-                <p class="title gruvbox-cyan is-5">{{ .Title }}</p>
-                <p class="content">{{ .Description }}</p>
-                <div class="level">
-                  <p class="is-size-7 level-item is-justify-content-start">
-                  <span class="gruvbox-magenta mr-1">Publicado: </span>{{.Date}}
-                    <a href="/posts/{{.Id}}" class="ml-3 button gruvbox-orange gruvbox-primary-bg is-small">Leer más</a>
+      <a href="/posts/{{ .Id }}" class="card is-bordered gruvbox-secondary-bg my-4">
+        <div class="card-content gruvbox-fg">
+          <!-- Media (Image and Content) -->
+          <div class="media">
+            <!-- Image -->
+            <figure class="media-left">
+              <img src="{{ .Image }}" alt="{{ .Title }}" class="image is-128x128">
+            </figure>
+            <!-- Content -->
+            <div class="media-content">
+              <p class="title gruvbox-cyan is-5">{{ .Title }}</p>
+              <p class="content">{{ .Description }}</p>
+              <!-- Footer (Date and Read More Button) -->
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <p class="is-size-7 gruvbox-magenta">
+                    <span class="mr-1">Publicado:</span>{{ .Date }}
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
       {{ end }}
     </div>
   </div>
 </section>
-{{end}}
+{{ end }}
