@@ -27,6 +27,7 @@
     text-align: center;
     overflow: hidden;
     margin-bottom: 1rem;
+    position: relative;
   }
 
   .slides {
@@ -60,27 +61,31 @@
   }
 
   /* Slider Navigation Styles */
-  .slider > a {
+  .slider-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .slider-nav a {
     display: inline-block;
-    width: 10px; /* Smaller circle size */
-    height: 10px; /* Smaller circle size */
-    background: var(--gruvbox-fg); /* Default circle color */
-    border-radius: 50%; /* Make it a circle */
-    margin: 0.5rem; /* Spacing between circles */
-    transition: background 0.3s ease; /* Smooth transition */
-    text-indent: -9999px; /* Hide the text (numbers) */
-    overflow: hidden; /* Ensure the text is hidden */
+    width: 10px;
+    height: 10px;
+    background: var(--gruvbox-fg);
+    border-radius: 50%;
+    margin: 0 0.25rem;
+    transition: background 0.3s ease;
+    text-indent: -9999px;
+    overflow: hidden;
   }
 
-  /* Active/Hover State */
-  .slider > a:hover,
-  .slider > a:focus {
-    background: var(--gruvbox-cyan); /* Change color on hover/focus */
+  .slider-nav a:hover,
+  .slider-nav a:focus {
+    background: var(--gruvbox-cyan);
   }
 
-  /* Active Slide Indicator */
-  .slider > a[aria-current="true"] {
-    background: var(--gruvbox-orange); /* Highlight the active slide */
+  .slider-nav a[aria-current="true"] {
+    background: var(--gruvbox-orange);
   }
 
   /* Responsive Design */
@@ -103,8 +108,6 @@
       </div>
       <div class="message-body">
         <div class="slider">
-          <a href="#walldo-1" aria-label="Slide 1"></a>
-          <a href="#walldo-2" aria-label="Slide 2"></a>
           <div class="slides">
             <div id="walldo-1">
               <img src="/assets/projects/walldo_1.png" alt="Walldo 1">
@@ -112,6 +115,10 @@
             <div id="walldo-2">
               <img src="/assets/projects/walldo_2.png" alt="Walldo 2">
             </div>
+          </div>
+          <div class="slider-nav">
+            <a href="#walldo-1" aria-label="Slide 1"></a>
+            <a href="#walldo-2" aria-label="Slide 2"></a>
           </div>
         </div>
         <p class="mt-3">
@@ -128,8 +135,6 @@
       </div>
       <div class="message-body">
         <div class="slider">
-          <a href="#interprete-1" aria-label="Slide 1"></a>
-          <a href="#interprete-2" aria-label="Slide 2"></a>
           <div class="slides">
             <div id="interprete-1">
               <img src="/assets/projects/interprete_1.png" alt="Interprete 1">
@@ -137,6 +142,10 @@
             <div id="interprete-2">
               <img src="/assets/projects/interprete_2.png" alt="Interprete 2">
             </div>
+          </div>
+          <div class="slider-nav">
+            <a href="#interprete-1" aria-label="Slide 1"></a>
+            <a href="#interprete-2" aria-label="Slide 2"></a>
           </div>
         </div>
         <p class="mt-3">
@@ -153,8 +162,6 @@
       </div>
       <div class="message-body">
         <div class="slider">
-          <a href="#simulador-1" aria-label="Slide 1"></a>
-          <a href="#simulador-2" aria-label="Slide 2"></a>
           <div class="slides">
             <div id="simulador-1">
               <img src="/assets/projects/simulador_1.png" alt="Simulador 1">
@@ -162,6 +169,10 @@
             <div id="simulador-2">
               <img src="/assets/projects/simulador_2.png" alt="Simulador 2">
             </div>
+          </div>
+          <div class="slider-nav">
+            <a href="#simulador-1" aria-label="Slide 1"></a>
+            <a href="#simulador-2" aria-label="Slide 2"></a>
           </div>
         </div>
         <p class="mt-3">
@@ -178,17 +189,14 @@
 
     sliders.forEach(slider => {
       const slides = slider.querySelector('.slides');
-      const navLinks = slider.querySelectorAll('a');
+      const navLinks = slider.querySelectorAll('.slider-nav a');
 
-      // Add scroll event listener to the slides container
-      slides.addEventListener('scroll', () => {
+      // Function to update the active dot
+      const updateActiveDot = () => {
         const scrollPosition = slides.scrollLeft;
         const slideWidth = slides.clientWidth;
-
-        // Calculate the active slide index
         const activeIndex = Math.round(scrollPosition / slideWidth);
 
-        // Update the active state of the navigation circles
         navLinks.forEach((link, index) => {
           if (index === activeIndex) {
             link.setAttribute('aria-current', 'true');
@@ -196,9 +204,12 @@
             link.removeAttribute('aria-current');
           }
         });
-      });
+      };
 
-      // Add click event listeners to the navigation circles
+      // Add scroll event listener to the slides container
+      slides.addEventListener('scroll', updateActiveDot);
+
+      // Add click event listeners to the navigation dots
       navLinks.forEach((link, index) => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
@@ -209,6 +220,9 @@
           });
         });
       });
+
+      // Set the initial active dot on page load
+      updateActiveDot();
     });
   });
 </script>
