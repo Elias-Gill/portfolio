@@ -10,11 +10,14 @@
           <div class="media">
             <!-- Image -->
             <figure class="media-left">
-              <img src="{{ .Image }}" alt="{{ .Title }}" class="image is-128x128">
+              <img 
+              src="{{ if fileExists .Image }}{{ .Image }}{{ else }}/assets/no_image.png{{ end }}" 
+              alt="{{ .Title }}" 
+              class="image is-128x128">
             </figure>
             <!-- Content -->
             <div class="media-content">
-              <p class="title gruvbox-cyan is-5">{{ .Title }}</p>
+              <p class="title gruvbox-cyan is-5">{{ if .Title }}{{ .Title }}{{ else }}{{ .Id }}{{ end }}</p>
               <p class="content">{{ .Description }}</p>
               <!-- Footer (Date and Read More Button) -->
               <div class="level is-mobile">

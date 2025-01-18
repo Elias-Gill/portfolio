@@ -25,7 +25,7 @@ type Metadata struct {
 	Title       interface{}
 	Date        interface{}
 	Description interface{}
-	Image       interface{}
+	Image       string
 	Id          interface{}
 }
 
@@ -56,12 +56,17 @@ func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
 	}
 	metaData := meta.Get(context)
 
+	var img string
+	if metaData["Image"] != nil {
+		img = metaData["Image"].(string)
+	}
+
 	return &Metadata{
 		Id:          file.Name(),
 		Title:       metaData["Title"],
 		Date:        metaData["Date"],
 		Description: metaData["Description"],
-		Image:       metaData["Image"],
+		Image:       img,
 	}, nil
 }
 
@@ -85,12 +90,17 @@ func extractPostMetadata(file string) (*Metadata, error) {
 	}
 	metaData := meta.Get(context)
 
+	var img string
+	if metaData["Image"] != nil {
+		img = metaData["Image"].(string)
+	}
+
 	return &Metadata{
+		Image:       img,
 		Id:          file,
 		Title:       metaData["Title"],
 		Date:        metaData["Date"],
 		Description: metaData["Description"],
-		Image:       metaData["Image"],
 	}, nil
 }
 

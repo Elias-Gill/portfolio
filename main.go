@@ -33,7 +33,7 @@ func main() {
 	http.HandleFunc("/webhook", handleWebhook)
 	http.HandleFunc("/", serveAboutMe)
 	http.HandleFunc("/posts/", servePostsList)
-	http.HandleFunc("/posts/{id}/", servePostDetail)
+	http.HandleFunc("/posts/{post}/", servePostDetail)
 
 	log.Print("Starting server...\n")
 	log.Printf("Serving in port %s\n", port)

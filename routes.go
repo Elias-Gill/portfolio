@@ -2,8 +2,10 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -14,13 +16,28 @@ import (
 	meta "github.com/yuin/goldmark-meta"
 )
 
-// Generates a combined template by extending the base template.
-// It takes a list of specific page templates and appends common templates (base.html, footer.html, navbar.html)
+// Generates an extended template using the base.html template
 // to ensure a consistent layout and structure across all pages.
 func renderTemplates(templates ...string) (*template.Template, error) {
+	// Add helper functions
+	funcMap := template.FuncMap{
+		"fileExists": func(path string) bool {
+			if path == "" {
+				return false
+			}
+			_, err := os.Stat(path)
+			return !errors.Is(err, fs.ErrExist)
+		},
+	}
+
+	// Create a new template with the FuncMap
+	tmpl := template.New("").Funcs(funcMap)
+
+	// Append the base templates to the list of templates
 	tmpls := append(templates, "./templates/base.html", "./templates/footer.html", "./templates/navbar.html")
 
-	tmpl, err := template.ParseFiles(tmpls...)
+	// Parse all templates
+	tmpl, err := tmpl.ParseFiles(tmpls...)
 	if err != nil {
 		log.Print(err.Error())
 		return nil, err
@@ -60,17 +77,20 @@ func servePostsList(w http.ResponseWriter, r *http.Request) {
 	tmp, err := renderTemplates("./pages/posts/list.html")
 	if err != nil {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		log.Println(err.Error())
 		return
 	}
 
 	err = tmp.ExecuteTemplate(w, "base.html", map[string]interface{}{"posts": posts})
 	if err != nil {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		log.Println(err.Error())
+		return
 	}
 }
 
 func servePostDetail(w http.ResponseWriter, r *http.Request) {
-	id := r.PathValue("id")
+	id := r.PathValue("post")
 	file, err := os.ReadFile(path.Join(repoPath, id))
 	if err != nil {
 		http.NotFound(w, r)
