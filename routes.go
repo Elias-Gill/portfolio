@@ -108,14 +108,15 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 
 	// markdown parsing
 	var content bytes.Buffer
-	if err = markdown.Convert(file, &content); err != nil {
+	err = markdown.Convert(file, &content)
+	if err != nil {
 		http.Error(w, "Error laoding file", http.StatusInternalServerError)
 		log.Println(err.Error())
 	}
 
 	data, err := extractPostMetadata(id)
-	if err = markdown.Convert(file, &content); err != nil {
-		http.Error(w, "Error laoding file", http.StatusInternalServerError)
+	if err != nil {
+		http.Error(w, "Error laoding file metadata", http.StatusInternalServerError)
 		log.Println(err.Error())
 		return
 	}
