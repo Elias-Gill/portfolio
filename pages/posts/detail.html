@@ -9,13 +9,15 @@
         <div class="box gruvbox-secondary-bg">
           <!-- Post Information -->
           <div class="mb-5">
-            <h1 class="title is-1 has-text-weight-bold gruvbox-magenta mb-4">{{ .Meta.Title }}</h1>
+            <h1 class="title is-1 has-text-weight-bold gruvbox-magenta mb-4">
+              {{ if .Meta.Title }}{{ .Meta.Title }} {{ else }} {{.Meta.Id}}{{ end }}
+            </h1>
             <p class="gruvbox-fg">
               <small>
                 Fecha de publicación: <span class="gruvbox-cyan">{{ .Meta.Date }}</span>
               </small>
             </p>
-            <hr class="gruvbox-fg">
+            <hr>
             <!-- Post Content -->
             <div class="markdown-content gruvbox-fg">
               {{ .Content }}

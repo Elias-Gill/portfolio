@@ -101,7 +101,7 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 		goldmark.WithExtensions(
 			meta.Meta,
 			highlighting.NewHighlighting(
-				highlighting.WithStyle("vim"),
+				highlighting.WithStyle("base16-snazzy"),
 			),
 		),
 	)

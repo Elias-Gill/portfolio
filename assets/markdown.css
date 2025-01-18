@@ -12,43 +12,88 @@
 
 /* Markdown Content Styles */
 .markdown-content {
-    line-height: 1.6;
+    line-height: 1.8;
+    /* Increased line height for better readability */
     font-size: 1.1rem;
+    color: var(--gruvbox-fg);
 }
 
-.markdown-content h1,
-.markdown-content h2,
-.markdown-content h3,
-.markdown-content h4,
-.markdown-content h5,
-.markdown-content h6 {
-    color: var(--gruvbox-cyan);
+/* Soft Gradient Styles for Titles */
+.markdown-content h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(5deg, var(--gruvbox-cyan), var(--gruvbox-fg), var(--gruvbox-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.markdown-content h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1.75rem;
+    margin-bottom: 1.25rem;
+    background: linear-gradient(5deg, var(--gruvbox-orange), var(--gruvbox-fg), var(--gruvbox-orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.markdown-content h3 {
+    font-size: 1.75rem;
+    font-weight: bold;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
+    background: linear-gradient(5deg, var(--gruvbox-green), var(--gruvbox-fg), var(--gruvbox-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.markdown-content h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(5deg, var(--gruvbox-yellow), var(--gruvbox-fg), var(--gruvbox-yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.markdown-content h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(5deg, var(--gruvbox-red), var(--gruvbox-fg), var(--gruvbox-red));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.markdown-content h6 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(5deg, var(--gruvbox-blue), var(--gruvbox-fg), var(--gruvbox-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .markdown-content p {
     margin-bottom: 1rem;
 }
 
-.markdown-content a {
-    color: var(--gruvbox-orange);
-    text-decoration: underline;
-}
-
-.markdown-content a:hover {
-    color: var(--gruvbox-yellow);
-}
-
 .markdown-content code {
-    background-color: var(--gruvbox-bg);
-    color: var(--gruvbox-green);
     padding: 0.25rem 0.5rem;
-    border-radius: 4px;
 }
 
 .markdown-content pre {
-    background-color: var(--gruvbox-bg);
     padding: 1rem;
     border-radius: 8px;
     overflow-x: auto;
@@ -56,9 +101,61 @@
 
 .markdown-content blockquote {
     border-left: 4px solid var(--gruvbox-cyan);
-    padding-left: 1rem;
+    padding: 1rem 1.5rem;
+    background-color: var(--gruvbox-bg-dark);
     color: var(--gruvbox-fg);
     margin: 1.5rem 0;
+    font-style: italic;
+}
+
+.markdown-content a {
+    color: var(--gruvbox-fg);
+    text-decoration: underline;
+    text-decoration-color: var(--gruvbox-yellow);
+    transition: color 0.22s ease;
+}
+
+.markdown-content a:hover {
+    color: var(--gruvbox-yellow);
+    text-decoration: none;
+}
+
+/* List Styles */
+.markdown-content ul,
+.markdown-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.markdown-content ul {
+    list-style-type: disc;
+    /* Bullet points for unordered lists */
+}
+
+.markdown-content ol {
+    list-style-type: decimal;
+    /* Numbers for ordered lists */
+}
+
+.markdown-content li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.markdown-content ul ul,
+.markdown-content ol ul {
+    list-style-type: circle;
+    /* Nested unordered lists */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.markdown-content ol ol,
+.markdown-content ul ol {
+    list-style-type: lower-alpha;
+    /* Nested ordered lists */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Responsive Design */
@@ -72,4 +169,48 @@
         font-size: 2rem;
         /* Smaller title on smaller screens */
     }
+}
+
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.markdown-content th,
+.markdown-content td {
+    padding: 0.75rem;
+    border: 1px solid var(--gruvbox-bg-light);
+    text-align: left;
+}
+
+.markdown-content th {
+    background-color: var(--gruvbox-bg-dark);
+    color: var(--gruvbox-cyan);
+    font-weight: bold;
+}
+
+.markdown-content tr:nth-child(even) {
+    background-color: var(--gruvbox-bg-dark);
+}
+
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+.markdown-content hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(
+        60deg,
+        transparent,
+        var(--gruvbox-cyan),
+        transparent
+    );
+    margin: 1rem 0;
 }

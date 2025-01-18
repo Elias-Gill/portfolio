@@ -1,4 +1,8 @@
 /* ---- Gruvbox Color Palette ------ */
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --gruvbox-bg: #282828;
     /* Dark0 - Main background */
