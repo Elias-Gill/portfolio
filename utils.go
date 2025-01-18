@@ -34,8 +34,10 @@ type Post struct {
 	Meta    *Metadata
 }
 
+// Like extractPostMetadata, but takes in a fs.DirEntry, so the steps to retrieve the metadata
+// is a little bit different.
 func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
-	content, err := os.ReadFile(path.Join("./posts", file.Name()))
+	content, err := os.ReadFile(path.Join(repoPath, file.Name()))
 	if err != nil {
 		return nil, err
 	}
@@ -63,8 +65,8 @@ func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
 	}, nil
 }
 
-func extractMetaFromFile(file string) (*Metadata, error) {
-	content, err := os.ReadFile(path.Join("./posts", file))
+func extractPostMetadata(file string) (*Metadata, error) {
+	content, err := os.ReadFile(path.Join(repoPath, file))
 	if err != nil {
 		return nil, err
 	}
@@ -94,24 +96,6 @@ func extractMetaFromFile(file string) (*Metadata, error) {
 
 // If the repository does not exist at the specified path, it clones the repository.
 func gitPull() error {
-	// Check if the repository directory exists
-	if _, err := os.Stat(repoPath); os.IsNotExist(err) {
-		// Clone the repository if it doesn't exist
-		cloneCmd := exec.Command("git", "clone", remoteRepoURL, repoPath)
-
-		var cloneOut bytes.Buffer
-		cloneCmd.Stdout = &cloneOut
-		cloneCmd.Stderr = &cloneOut
-
-		err := cloneCmd.Run()
-		if err != nil {
-			return fmt.Errorf("Git clone failed: %v, output: %s", err, cloneOut.String())
-		}
-
-		log.Printf("Repo succesfully cloned")
-		return nil
-	}
-
 	// Pull the latest changes if the repository exists
 	cmd := exec.Command("git", "pull", "origin", "master")
 	cmd.Dir = repoPath
@@ -150,4 +134,13 @@ func verifySecret(r *http.Request) bool {
 
 	// Compare the signatures
 	return hmac.Equal([]byte(signature), []byte(expectedSignature))
+}
+
+// getEnvOrPanic retrieves the value of an environment variable or panics if it is not set.
+func getEnvOrPanic(key string) string {
+	value, exists := os.LookupEnv(key)
+	if !exists {
+		panic(fmt.Sprintf("Environment variable %s is not set", key))
+	}
+	return value
 }

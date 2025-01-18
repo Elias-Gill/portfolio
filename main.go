@@ -3,22 +3,30 @@ package main
 import (
 	"log"
 	"net/http"
+	"path"
 )
 
 const (
-	secret        = "your-secret-token"        // TODO: Replace with your webhook secret
-	repoPath      = "/path/to/your/local/repo" // TODO: Replace with your local repo path
 	remoteRepoURL = "https://github.com/elias-gill/blog"
 	port          = ":8000"
 )
 
+var (
+	secret   string
+	repoPath string
+)
+
 func main() {
+	// Load environment variables or panic if they are not set
+	secret = getEnvOrPanic("WEBHOOK_SECRET")
+	repoPath = getEnvOrPanic("REPO_PATH")
+
 	// route for serving static files
 	assets_path := http.FileServer(http.Dir("./assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", assets_path))
 
 	// route for serving posts media and attachments
-	posts_media_path := http.FileServer(http.Dir("./posts/media/"))
+	posts_media_path := http.FileServer(http.Dir(path.Join(repoPath, "/media/")))
 	http.Handle("/media/", http.StripPrefix("/media/", posts_media_path))
 
 	// pages

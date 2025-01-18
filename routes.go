@@ -43,7 +43,7 @@ func serveAboutMe(w http.ResponseWriter, r *http.Request) {
 }
 
 func servePostsList(w http.ResponseWriter, r *http.Request) {
-	files, err := os.ReadDir("./posts")
+	files, err := os.ReadDir(repoPath)
 	if err != nil {
 		log.Fatal("Cannot open posts folder")
 	}
@@ -71,7 +71,7 @@ func servePostsList(w http.ResponseWriter, r *http.Request) {
 
 func servePostDetail(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	file, err := os.ReadFile(path.Join("./posts", id))
+	file, err := os.ReadFile(path.Join(repoPath, id))
 	if err != nil {
 		http.NotFound(w, r)
 		return
@@ -90,17 +90,21 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 	var content bytes.Buffer
 	if err = markdown.Convert(file, &content); err != nil {
 		http.Error(w, "Error laoding file", http.StatusInternalServerError)
+		log.Println(err.Error())
 	}
 
-	data, err := extractMetaFromFile(id)
+	data, err := extractPostMetadata(id)
 	if err = markdown.Convert(file, &content); err != nil {
 		http.Error(w, "Error laoding file", http.StatusInternalServerError)
+		log.Println(err.Error())
+		return
 	}
 
 	// template generation
 	tmpl, err := renderTemplates("./pages/posts/detail.html")
 	if err != nil {
 		http.Error(w, "Error laoding template", http.StatusInternalServerError)
+		log.Println(err.Error())
 		return
 	}
 
@@ -109,8 +113,6 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 		Meta:    data,
 	}
 	tmpl.ExecuteTemplate(w, "base.html", &post)
-
-	log.Print("Cargando post")
 }
 
 func handleWebhook(w http.ResponseWriter, r *http.Request) {
