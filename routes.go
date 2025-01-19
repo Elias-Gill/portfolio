@@ -56,7 +56,7 @@ func serveAboutMe(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err = tmpl.ExecuteTemplate(w, "base.html", nil); err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		log.Printf("Template execution error: %s\n", err.Error())
 	}
 }
 
