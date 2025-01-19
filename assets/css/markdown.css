@@ -198,48 +198,82 @@
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .container {
-        max-width: 100%; /* Ocupa todo el ancho en móviles */
-        padding-left: 1rem; /* Añade un poco de padding para que no pegue a los bordes */
-        padding-right: 1rem;
-    }
-
-    .column.is-10 {
-        width: 100%; /* Ocupa todo el ancho en móviles */
-    }
-
-    .box {
-        padding: 1rem; /* Reduce el padding en móviles */
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin: 0;
     }
 
     .title.is-1 {
-        font-size: 2rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 2rem;
+        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content {
-        font-size: 1rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 1rem;
+        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content h1 {
-        font-size: 2rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 2rem;
+        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content h2 {
-        font-size: 1.75rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 1.75rem;
+        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content h3 {
-        font-size: 1.5rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 1.5rem;
+        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content h4 {
-        font-size: 1.25rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 1.25rem;
+        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content h5 {
-        font-size: 1rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 1rem;
+        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content h6 {
-        font-size: 0.9rem; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 0.9rem;
+        /* Tamaño de fuente más pequeño en móviles */
+    }
+
+    .section {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .box {
+        border-radius: 0;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        margin-right: 0;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        margin-right: 0;
+        margin-left: 0;
+        padding: 0;
     }
 }
