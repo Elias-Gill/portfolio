@@ -13,7 +13,7 @@ const (
 var (
 	secret   string
 	repoPath string
-	port     = ":8000"
+	port     = "8000"
 )
 
 func main() {
@@ -43,7 +43,7 @@ func main() {
 	log.Print("Starting server...\n")
 	log.Printf("Serving in port %s\n", port)
 
-	if err := http.ListenAndServe(port, nil); err != nil {
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatalf("Cannot initialize server on port %s %s", port, err.Error())
 	}
 }

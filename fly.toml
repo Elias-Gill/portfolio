@@ -1,14 +1,10 @@
-# fly.toml app configuration file generated for portfolio-elias-gill on 2025-01-19T19:25:36-03:00
+# fly.toml app configuration file generated for portfolio-elias-gill on 2025-01-19T19:53:19-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'portfolio-elias-gill'
 primary_region = 'eze'
-
-[build]
-  [build.args]
-    GO_VERSION = '1.22.0'
 
 [env]
   PORT = '8000'
