@@ -13,6 +13,7 @@ const (
 var (
 	secret   string
 	repoPath string
+	mainPath = "."
 	port     = "8000"
 )
 
@@ -26,8 +27,13 @@ func main() {
 		port = envPort
 	}
 
+	envMPath := getEnvAndLog("MAIN_PATH")
+	if envPort != "" {
+		mainPath = envMPath
+	}
+
 	// route for serving static files
-	assets_path := http.FileServer(http.Dir("./assets"))
+	assets_path := http.FileServer(http.Dir(path.Join(mainPath, "/assets")))
 	http.Handle("/assets/", http.StripPrefix("/assets/", assets_path))
 
 	// route for serving posts media and attachments

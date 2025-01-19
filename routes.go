@@ -35,7 +35,11 @@ func renderTemplates(templates ...string) (*template.Template, error) {
 	tmpl := template.New("").Funcs(funcMap)
 
 	// Append the base templates to the list of templates
-	tmpls := append(templates, "./templates/base.html", "./templates/footer.html", "./templates/navbar.html")
+	base := path.Join(mainPath, "./templates/base.html")
+	footer := path.Join(mainPath, "./templates/footer.html")
+	navbar := path.Join(mainPath, "./templates/navbar.html")
+
+	tmpls := append(templates, base, footer, navbar)
 
 	// Parse all templates
 	tmpl, err := tmpl.ParseFiles(tmpls...)
