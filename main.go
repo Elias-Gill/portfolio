@@ -18,7 +18,7 @@ var (
 )
 
 func main() {
-	// Load environment variables or panic if they are not set
+	// Load environment variables
 	secret = getEnvAndLog("WEBHOOK_SECRET")
 	repoPath = getEnvAndLog("REPO_PATH")
 
@@ -43,7 +43,7 @@ func main() {
 	// pages
 	http.HandleFunc("/webhook", handleWebhook)
 	http.HandleFunc("/", serveAboutMe)
-	http.HandleFunc("/posts/", servePostsList)
+	http.HandleFunc("/posts/", serveBlog)
 	http.HandleFunc("/posts/{post}/", servePostDetail)
 
 	log.Print("Starting server...\n")

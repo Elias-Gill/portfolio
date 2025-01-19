@@ -52,7 +52,8 @@ func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
 	var buf bytes.Buffer
 	context := parser.NewContext()
 	if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
-		panic(err)
+		log.Printf("Error parsing metadata: %s\n", err.Error())
+		return nil, err
 	}
 	metaData := meta.Get(context)
 
@@ -86,7 +87,7 @@ func extractPostMetadata(file string) (*Metadata, error) {
 	var buf bytes.Buffer
 	context := parser.NewContext()
 	if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
-		panic(err)
+		return nil, err
 	}
 	metaData := meta.Get(context)
 

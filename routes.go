@@ -64,10 +64,12 @@ func serveAboutMe(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func servePostsList(w http.ResponseWriter, r *http.Request) {
+func serveBlog(w http.ResponseWriter, r *http.Request) {
 	files, err := os.ReadDir(repoPath)
 	if err != nil {
-		log.Fatal("Cannot open posts folder")
+		log.Printf("Cannot open posts folder")
+		http.Error(w, "Error fetching posts", http.StatusInternalServerError)
+		return
 	}
 
 	var posts []Metadata
