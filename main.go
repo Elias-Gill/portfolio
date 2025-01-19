@@ -8,18 +8,23 @@ import (
 
 const (
 	remoteRepoURL = "https://github.com/elias-gill/blog"
-	port          = ":8000"
 )
 
 var (
 	secret   string
 	repoPath string
+	port     = ":8000"
 )
 
 func main() {
 	// Load environment variables or panic if they are not set
-	secret = getEnvOrPanic("WEBHOOK_SECRET")
-	repoPath = getEnvOrPanic("REPO_PATH")
+	secret = getEnvAndLog("WEBHOOK_SECRET")
+	repoPath = getEnvAndLog("REPO_PATH")
+
+	envPort := getEnvAndLog("PORT")
+	if envPort != "" {
+		port = envPort
+	}
 
 	// route for serving static files
 	assets_path := http.FileServer(http.Dir("./assets"))

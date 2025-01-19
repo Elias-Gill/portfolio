@@ -146,11 +146,11 @@ func verifySecret(r *http.Request) bool {
 	return hmac.Equal([]byte(signature), []byte(expectedSignature))
 }
 
-// getEnvOrPanic retrieves the value of an environment variable or panics if it is not set.
-func getEnvOrPanic(key string) string {
+// getEnvAndLog retrieves the value of an environment variable and logs if it is not set.
+func getEnvAndLog(key string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
-		panic(fmt.Sprintf("Environment variable %s is not set", key))
+		log.Printf("Environment variable %s is not set", key)
 	}
 	return value
 }
