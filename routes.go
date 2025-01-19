@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting"
@@ -67,6 +68,11 @@ func servePostsList(w http.ResponseWriter, r *http.Request) {
 
 	var posts []Metadata
 	for _, f := range files {
+		// Ignore non markdown files
+		if !strings.HasSuffix(f.Name(), ".md") {
+			continue
+		}
+
 		data, err := extractMetaFromDirEntry(f)
 		if err != nil {
 			continue

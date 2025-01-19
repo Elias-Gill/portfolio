@@ -1,0 +1,24 @@
+/* Card Styling */
+.card {
+    max-width: 400px;
+}
+
+.card-image img,
+.card-image video {
+    width: 100%;
+    height: auto;
+    /* Altura automática para mantener la proporción */
+    display: block;
+    object-fit: cover;
+    /* Cubre el espacio sin distorsión */
+    transition: transform 1s ease, opacity 1s ease;
+    /* Transición suave para transform y opacidad */
+}
+
+.card-image:hover img,
+.card-image:hover video {
+    transform: scale(1.06);
+    /* Escala el contenido al 106% de su tamaño */
+    opacity: 0.8;
+    /* Reduce la opacidad al pasar el mouse */
+}

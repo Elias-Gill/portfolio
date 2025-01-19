@@ -1,27 +1,41 @@
 {{ define "content" }}
 <!-- Hero Section -->
+<link rel="stylesheet" href="/assets/css/home.css">
 <section class="hero is-fullheight gruvbox-bg">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
         <!-- Left Column: Text Content -->
         <div class="column is-two-thirds">
-          <h1 class="title is-1 gruvbox-magenta">Bienvenido !!!</h1>
+          <h1 class="title is-1 gruvbox-magenta">
+            Desarrollador Backend Junior enfocado en eficiencia, algoritmos y sistemas escalables
+          </h1>
           <div class="content pr-6 gruvbox-fg">
             <p>
-              Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+              Con amplia experiencia en Go, además de conocimientos proficientes en TypeScript, Python, Java y
+              Linux. Aunque no tengo experiencia laboral formal, he dedicado más de 2 años a construir
+              proyectos personales, explorar algoritmos y diseñar sistemas. Amante de la línea de comandos,
+              las TUI y entender a fondo las herramientas que uso.
             </p>
           </div>
-          <h2 class="title is-4 gruvbox-cyan">Tecnologias</h2>
+          <h2 class="title is-4 gruvbox-cyan">Tecnologías</h2>
           {{ block "tecnologias" . }} {{ end }}
+          <!-- Botones movidos aquí -->
+          <div class="buttons mt-4">
+            <a href="#proyectos" class="button is-link gruvbox-cyan-bg mr-3">Ver mis proyectos</a>
+            <a href="#contacto" class="button is-link gruvbox-cyan-bg mr-3">Contactarme</a>
+          </div>
         </div>
-
         <!-- Right Column: Profile Image -->
         <div class="column">
           <div class="card gruvbox-secondary-bg">
             <div class="card-image">
-              <figure class="image is-square">
-                <img src="/assets/yo.jpg" alt="Mi perfil">
+              <figure class="video">
+                <video autoplay loop muted playsinline>
+                  <source src="/assets/yo.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <figcaption class="is-hidden">Mi perfil en acción</figcaption>
               </figure>
             </div>
           </div>
@@ -30,12 +44,51 @@
     </div>
   </div>
 </section>
-
 <!-- Projects Section -->
 <section class="section gruvbox-bg">
   <div class="container">
-    <h1 class="title is-2 gruvbox-orange" id="proyectos">Mis proyectos</h1>
+    <h1 class="title is-2 gruvbox-orange" id="proyectos">Proyectos Destacados</h1>
+    <p class="gruvbox-fg mb-4">
+      Aquí tienes una selección de mis proyectos más destacados. Cada uno representa un desafío único y una
+      oportunidad para aprender y crecer como desarrollador. Para ver mas puedes visistar mi 
+      <a target="_blank" class="gruvbox-cyan" href="https://github.com/elias-gill">github</a>.
+    </p>
     {{ block "projects" . }} {{ end }}
+  </div>
+</section>
+<!-- Contact section -->
+<section class="section gruvbox-bg">
+  <div class="container">
+    <h1 class="title is-2 gruvbox-orange" id="contacto">Contacto</h1>
+    <div class="content gruvbox-fg">
+      <p>
+        Si estás interesado en colaborar, tienes alguna pregunta o simplemente quieres charlar sobre tecnología, no dudes en contactarme. ¡Estoy siempre abierto a nuevas oportunidades y conversaciones interesantes!
+      </p>
+      <div class="columns">
+        <!-- Columna única: Información de contacto -->
+        <div class="column">
+          <h2 class="title is-4 gruvbox-cyan">¿Cómo contactarme?</h2>
+          <ul>
+            <li>
+              <strong>Correo electrónico:</strong>
+              <a href="mailto:tucorreo@ejemplo.com" class="gruvbox-cyan">tucorreo@ejemplo.com</a>
+            </li>
+            <li>
+              <strong>GitHub:</strong>
+              <a href="https://github.com/tuusuario" target="_blank" class="gruvbox-cyan">github.com/tuusuario</a>
+            </li>
+            <li>
+              <strong>LinkedIn:</strong>
+              <a href="https://linkedin.com/in/tuusuario" target="_blank" class="gruvbox-cyan">linkedin.com/in/tuusuario</a>
+            </li>
+            <li>
+              <strong>Twitter/X:</strong>
+              <a href="https://twitter.com/tuusuario" target="_blank" class="gruvbox-cyan">twitter.com/tuusuario</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {{ end }}

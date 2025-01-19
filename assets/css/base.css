@@ -28,6 +28,8 @@ html {
     /* A muted, less bright color */
 }
 
+/* ---- COLORS SECTIONS ---- */
+
 /* Background and Text Colors */
 .gruvbox-bg {
     background-color: var(--gruvbox-bg);
@@ -81,6 +83,15 @@ a.card {
 }
 
 /* Card Hover Effect */
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Limita el ancho máximo de la tarjeta */
+    margin: 0 auto;
+    /* Centra la tarjeta en su columna */
+}
+
 a.card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -121,45 +132,46 @@ a.card:hover {
     }
 }
 
+/* --- Footer Styles --- */
+.footer {
+    background-color: var(--gruvbox-secondary-bg);
+    border-top: 1px solid rgba(235, 219, 178, 0.2);
+    /* Subtle border with opacity */
+    padding: 1.5rem 0;
+    /* Adjust padding */
+}
+
+.footer p {
+    color: var(--gruvbox-fg);
+    font-size: 0.9rem;
+    /* Smaller font size */
+    margin: 0;
+    /* Remove default margin */
+}
+
 /* --- NAV-BAR MENU --- */
 
 /* Navbar Styles */
 #navbar {
-  left: 0;
-  width: 100%;
-  transition: top 0.3s ease; /* Smooth transition */
-  z-index: 1000; /* Ensure it stays above other content */
-  top: 0;
+    left: 0;
+    width: 100%;
+    transition: top 0.3s ease;
+    /* Smooth transition */
+    z-index: 1000;
+    /* Ensure it stays above other content */
+    top: 0;
 }
 
 /* Burger Menu Styles */
 .navbar-burger {
-  color: var(--gruvbox-fg); /* Match the burger menu color to the navbar text */
+    color: var(--gruvbox-fg);
+    /* Match the burger menu color to the navbar text */
 }
 
 .navbar-burger span {
-  background-color: var(--gruvbox-fg); /* Color of the burger menu lines */
-  transition: all 0.3s ease;
-}
-
-/* --- BLOG POSTS LIST --- */
-
-/* Card Styles */
-.card.is-bordered {
-    border: 1px solid var(--gruvbox-fg);
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card.is-bordered:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Media Image */
-.media-left .image {
-    border-radius: 8px;
-    overflow: hidden;
+    background-color: var(--gruvbox-fg);
+    /* Color of the burger menu lines */
+    transition: all 0.3s ease;
 }
 
 /* Button Styles */
@@ -194,28 +206,34 @@ a.card:hover {
     }
 }
 
-/* Card Styling */
-.card {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .columns.is-vcentered {
+        flex-direction: column;
+        /* Cambia a una columna en pantallas pequeñas */
+    }
 
-.card-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+    .column.is-two-thirds {
+        width: 100%;
+        /* Ocupa todo el ancho en pantallas pequeñas */
+        padding-right: 0;
+        /* Elimina el padding derecho */
+    }
 
-/* --- Footer Styles --- */
-.footer {
-    background-color: var(--gruvbox-secondary-bg);
-    border-top: 1px solid rgba(235, 219, 178, 0.2); /* Subtle border with opacity */
-    padding: 1.5rem 0; /* Adjust padding */
-}
+    .card {
+        max-width: 100%;
+        /* La tarjeta ocupa todo el ancho en móviles */
+        margin-top: 2rem;
+        /* Espacio arriba de la tarjeta */
+    }
 
-.footer p {
-    color: var(--gruvbox-fg);
-    font-size: 0.9rem; /* Smaller font size */
-    margin: 0; /* Remove default margin */
+    .buttons {
+        justify-content: center;
+        /* Centra los botones en móviles */
+    }
+
+    .buttons .button {
+        margin: 0.5rem;
+        /* Espacio entre botones en móviles */
+    }
 }
