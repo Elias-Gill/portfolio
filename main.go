@@ -20,7 +20,7 @@ var (
 func main() {
 	// Load environment variables
 	secret = getEnvAndLog("WEBHOOK_SECRET")
-	repoPath = getEnvAndLog("REPO_PATH")
+	repoPath = getEnvAndLog("BLOG_PATH")
 
 	envPort := getEnvAndLog("PORT")
 	if envPort != "" {
