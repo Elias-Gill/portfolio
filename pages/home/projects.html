@@ -5,21 +5,25 @@
   <div class="column is-one-third">
     <article class="message is-bordered">
       <div class="message-header">
-        <p>Walldo</p>
+        <p><a style="text-decoration: none;" href="https://github.com/elias-gill/walldo">Walldo</a></p>
       </div>
       <div class="message-body">
         <div class="slider">
           <div class="slides">
             <div id="walldo-1">
-              <img src="/assets/projects/walldo_1.png" alt="Walldo 1">
+              <img src="/assets/projects/walldo_1.webp" alt="Walldo 1">
             </div>
             <div id="walldo-2">
-              <img src="/assets/projects/walldo_2.png" alt="Walldo 2">
+              <img src="/assets/projects/walldo_2.webp" alt="Walldo 2">
+            </div>
+            <div id="walldo-3">
+              <img src="/assets/projects/walldo_3.webp" alt="Walldo 3">
             </div>
           </div>
           <div class="slider-nav">
             <a href="#walldo-1" aria-label="Slide 1"></a>
             <a href="#walldo-2" aria-label="Slide 2"></a>
+            <a href="#walldo-3" aria-label="Slide 3"></a>
           </div>
         </div>
         <p class="content is-small has-text-justified mt-3">
@@ -34,27 +38,31 @@
   <div class="column is-one-third">
     <article class="message is-bordered">
       <div class="message-header">
-        <p>Interprete REPL</p>
+        <p><a style="text-decoration: none;" href="https://github.com/elias-gill/interpreter">Interprete REPL</a></p>
       </div>
       <div class="message-body">
         <div class="slider">
           <div class="slides">
             <div id="interprete-1">
-              <img src="/assets/projects/interprete_1.png" alt="Interprete 1">
+              <img src="/assets/projects/interpreter_1.webp" alt="Interprete 1">
             </div>
             <div id="interprete-2">
-              <img src="/assets/projects/interprete_2.png" alt="Interprete 2">
+              <img src="/assets/projects/interpreter_2.webp" alt="Interprete 2">
+            </div>
+            <div id="interprete-2">
+              <img src="/assets/projects/interpreter_3.webp" alt="Interprete 3">
             </div>
           </div>
           <div class="slider-nav">
             <a href="#interprete-1" aria-label="Slide 1"></a>
             <a href="#interprete-2" aria-label="Slide 2"></a>
+            <a href="#interprete-3" aria-label="Slide 3"></a>
           </div>
         </div>
         <p class="content is-small has-text-justified mt-3">
-          Walldo es un cambiador de fondos de pantalla ligero y rápido. Lo creé porque no encontraba una
-          alternativa para Windows que fuera lo suficientemente rápida y minimalista. Walldo es simple,
-          funcional y veloz.
+          El lenguaje es sencillo, con una sintaxis inspirada en C. Soporta operaciones aritméticas, ciclos,
+          condicionales if-else, recursividad y funciones anónimas. Lo desarrollé como un proyecto de aprendizaje sobre
+          la construccion de compiladores y parsers.
         </p>
       </div>
     </article>
@@ -69,10 +77,10 @@
         <div class="slider">
           <div class="slides">
             <div id="simulador-1">
-              <img src="/assets/projects/simulador_1.png" alt="Simulador 1">
+              <img src="/assets/projects/simulador_1.webp" alt="Simulador 1">
             </div>
             <div id="simulador-2">
-              <img src="/assets/projects/simulador_2.png" alt="Simulador 2">
+              <img src="/assets/projects/simulador_2.webp" alt="Simulador 2">
             </div>
           </div>
           <div class="slider-nav">
@@ -88,6 +96,11 @@
       </div>
     </article>
   </div>
+</div>
+<!-- Contenedor para la imagen ampliada -->
+<div id="overlay" class="overlay">
+  <span class="close-btn">&times;</span>
+  <img class="enlarged-image" src="" alt="Imagen ampliada">
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -130,6 +143,32 @@
 
       // Set the initial active dot on page load
       updateActiveDot();
+    });
+
+    // Selecciona los elementos para ampliar imágenes
+    const images = document.querySelectorAll('.slides img');
+    const overlay = document.getElementById('overlay');
+    const enlargedImage = document.querySelector('.enlarged-image');
+    const closeBtn = document.querySelector('.close-btn');
+
+    // Muestra la imagen ampliada al hacer clic en una imagen pequeña
+    images.forEach(image => {
+      image.addEventListener('click', () => {
+        enlargedImage.src = image.src; // Carga la misma imagen en el contenedor ampliado
+        overlay.style.display = 'block'; // Muestra el overlay
+      });
+    });
+
+    // Oculta la imagen ampliada al hacer clic en el botón de cerrar
+    closeBtn.addEventListener('click', () => {
+      overlay.style.display = 'none'; // Oculta el overlay
+    });
+
+    // Oculta la imagen ampliada al hacer clic fuera de la imagen
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) {
+        overlay.style.display = 'none'; // Oculta el overlay
+      }
     });
   });
 </script>

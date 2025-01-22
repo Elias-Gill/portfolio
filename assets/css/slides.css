@@ -37,7 +37,7 @@
     border-radius: 8px;
 }
 
-.slides > div {
+.slides>div {
     scroll-snap-align: start;
     flex-shrink: 0;
     width: 100%;
@@ -92,8 +92,41 @@
         flex-direction: column;
     }
 
-    .slides > div {
+    .slides>div {
         height: 150px;
     }
 }
 
+/* Estilo para el overlay (fondo oscuro) */
+.overlay {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    /* Fondo oscuro semitransparente */
+    z-index: 1000;
+    /* Asegura que esté por encima de otros elementos */
+    text-align: center;
+}
+
+/* Estilo para la imagen ampliada */
+.enlarged-image {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 5%;
+    /* Centra verticalmente */
+}
+
+/* Estilo para el botón de cerrar */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
