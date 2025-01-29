@@ -2,6 +2,7 @@
 .box {
     border-radius: 8px;
     padding: 2rem;
+    box-shadow: none;
 }
 
 /* Title Styles */
