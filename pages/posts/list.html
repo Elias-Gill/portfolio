@@ -12,7 +12,7 @@
             <!-- Image -->
             <figure class="media-left">
               <img 
-              src="{{ if fileExists .Image }}{{ .Image }}{{ else }}/assets/no_image.webp{{ end }}" 
+              src="{{ if fileExists .Image }}/media/{{ .Image }}{{ else }}/assets/no_image.webp{{ end }}" 
               alt="{{ .Title }}" 
               class="image is-128x128">
             </figure>
