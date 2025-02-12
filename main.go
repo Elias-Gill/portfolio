@@ -12,32 +12,34 @@ const (
 
 var (
 	secret   string
-	repoPath string
-	mainPath = "."
+	blogPath string
 	port     = "8000"
+	// I dont know a better name, but here is where the source code is stored, so we can load
+	// templates and assets
+	resourcesPath = "."
 )
 
 func main() {
 	// Load environment variables
 	secret = getEnvAndLog("WEBHOOK_SECRET")
-	repoPath = getEnvAndLog("BLOG_PATH")
+	blogPath = getEnvAndLog("BLOG_PATH")
 
 	envPort := getEnvAndLog("PORT")
 	if envPort != "" {
 		port = envPort
 	}
 
-	envMPath := getEnvAndLog("MAIN_PATH")
+	aux := getEnvAndLog("RESOURCES_PATH")
 	if envPort != "" {
-		mainPath = envMPath
+		resourcesPath = aux
 	}
 
 	// route for serving static files
-	assets_path := http.FileServer(http.Dir(path.Join(mainPath, "/assets")))
+	assets_path := http.FileServer(http.Dir(path.Join(resourcesPath, "/assets")))
 	http.Handle("/assets/", http.StripPrefix("/assets/", assets_path))
 
 	// route for serving posts media and attachments
-	posts_media_path := http.FileServer(http.Dir(path.Join(repoPath, "/media/")))
+	posts_media_path := http.FileServer(http.Dir(path.Join(blogPath, "/media/")))
 	http.Handle("/media/", http.StripPrefix("/media/", posts_media_path))
 
 	// pages

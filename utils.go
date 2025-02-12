@@ -37,7 +37,7 @@ type Post struct {
 // Like extractPostMetadata, but takes in a fs.DirEntry, so the steps to retrieve the metadata
 // is a little bit different.
 func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
-	content, err := os.ReadFile(path.Join(repoPath, file.Name()))
+	content, err := os.ReadFile(path.Join(blogPath, file.Name()))
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
 }
 
 func extractPostMetadata(file string) (*Metadata, error) {
-	content, err := os.ReadFile(path.Join(repoPath, file))
+	content, err := os.ReadFile(path.Join(blogPath, file))
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func extractPostMetadata(file string) (*Metadata, error) {
 func gitPull() error {
 	// Pull the latest changes if the repository exists
 	cmd := exec.Command("git", "pull", "origin", "master")
-	cmd.Dir = repoPath
+	cmd.Dir = blogPath
 
 	var out bytes.Buffer
 	cmd.Stdout = &out

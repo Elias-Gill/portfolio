@@ -35,9 +35,9 @@ func renderTemplates(templates ...string) (*template.Template, error) {
 	tmpl := template.New("").Funcs(funcMap)
 
 	// Append the base templates to the list of templates
-	base := path.Join(mainPath, "./templates/base.html")
-	footer := path.Join(mainPath, "./templates/footer.html")
-	navbar := path.Join(mainPath, "./templates/navbar.html")
+	base := path.Join(resourcesPath, "./templates/base.html")
+	footer := path.Join(resourcesPath, "./templates/footer.html")
+	navbar := path.Join(resourcesPath, "./templates/navbar.html")
 
 	tmpls := append(templates, base, footer, navbar)
 
@@ -65,7 +65,7 @@ func serveAboutMe(w http.ResponseWriter, r *http.Request) {
 }
 
 func serveBlog(w http.ResponseWriter, r *http.Request) {
-	files, err := os.ReadDir(repoPath)
+	files, err := os.ReadDir(blogPath)
 	if err != nil {
 		log.Printf("Cannot open posts folder")
 		http.Error(w, "Error fetching posts", http.StatusInternalServerError)
@@ -103,7 +103,7 @@ func serveBlog(w http.ResponseWriter, r *http.Request) {
 
 func servePostDetail(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("post")
-	file, err := os.ReadFile(path.Join(repoPath, id))
+	file, err := os.ReadFile(path.Join(blogPath, id))
 	if err != nil {
 		http.NotFound(w, r)
 		return
