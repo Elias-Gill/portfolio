@@ -1,239 +1,159 @@
-/* ---- Gruvbox Color Palette ------ */
-html {
-    scroll-behavior: smooth;
-}
-
 :root {
-    --gruvbox-bg: #282828;
-    /* Dark0 - Main background */
-    --gruvbox-fg: #ebdbb2;
-    /* Light1 - Main foreground text */
-    --gruvbox-magenta: #d3869b;
-    /* Bright Magenta */
-    --gruvbox-cyan: #83a598;
-    /* Bright Cyan */
-    --gruvbox-orange: #fabd2f;
-    /* Bright Orange */
-    --gruvbox-yellow: #b8bb26;
-    /* Bright Yellow */
-    --gruvbox-green: #8ec07c;
-    /* Bright Green */
-    --gruvbox-red: #fb4934;
-    /* Bright Red */
-    --gruvbox-blue: #458588;
-    /* Bright Blue */
-
-    --gruvbox-secondary-bg: #3c3836;
-    --gruvbox-secondary-fg: #a89984;
-    /* A muted, less bright color */
+  --bg: #222323;
+  --fg: #ebdbff;
+  --accent-pink: #C492b1;
+  --accent-cyan: #97D7BD;
+  --accent-orange: #e6b99d;
+  --muted: #7d7d7d;
+  --border: #585858;
+  --bg-dark: #191919;
+  --bg-hover: #2f2f2f;
+  --bg-highlight: #3b3b3e;
+  --cursor-line: #252525;
+  --cursor-col: #15222F;
+  --dim: #636363;
 }
 
-/* ---- COLORS SECTIONS ---- */
-
-/* Background and Text Colors */
-.gruvbox-bg {
-    background-color: var(--gruvbox-bg);
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, sans-serif;
 }
 
-.gruvbox-fg {
-    color: var(--gruvbox-fg);
+/* Card Styles */
+.card {
+  background-color: var(--bg-dark);
+  color: var(--fg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(20, 20, 20, 0.2);
+  margin: 0 auto;
+  transition: transform 0.2s ease;
 }
 
-.gruvbox-secondary-bg {
-    background-color: var(--gruvbox-secondary-bg);
+a.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
-/* Accent Colors */
-.gruvbox-magenta {
-    color: var(--gruvbox-magenta);
+a.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(30, 30, 30, 0.4);
 }
 
-.gruvbox-cyan {
-    color: var(--gruvbox-cyan);
+/* Button Styles */
+.button {
+  background-color: var(--accent-orange);
+  color: var(--bg);
+  border: none;
+  padding: 0.6em 1.2em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.gruvbox-orange {
-    color: var(--gruvbox-orange);
+.button:hover {
+  /* background-color: var(--dim); */
+  color: var(--accent-cyan);
+  outline: 1px solid var(--accent-cyan);
+  transition: all 120ms;
+}
+
+/* Typography Accents */
+h1, h2, h3 {
+  color: var(--accent-pink);
+}
+
+a {
+  color: var(--accent-cyan);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navbar */
+#navbar {
+  background-color: var(--bg-dark);
+  color: var(--fg);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Burger Menu */
+.navbar-burger span {
+  background-color: var(--fg);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--bg-dark);
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.footer p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Media */
+.media-left .image {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Cursor Line Style Simulation */
+.card:hover,
+.button:hover,
+.media:hover {
+  background-color: var(--cursor-line);
+}
+
+/* Visual-Like Highlight */
+.highlight {
+  background-color: var(--bg-highlight);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .hero-body .columns {
-        flex-direction: column;
-        text-align: center;
-    }
+  .columns {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .hero-body .column {
-        width: 100%;
-    }
-
-    .card {
-        margin-top: 20px;
-    }
-}
-
-/* Make the entire card clickable */
-a.card {
-    display: block;
-    /* Ensure the link takes up the full card space */
-    text-decoration: none;
-    /* Remove underline */
-    color: inherit;
-    /* Inherit text color */
-}
-
-/* Card Hover Effect */
-.card {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Limita el ancho máximo de la tarjeta */
-    margin: 0 auto;
-    /* Centra la tarjeta en su columna */
-}
-
-a.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Button Styles (now a span inside the card) */
-.button.gruvbox-orange {
-    background-color: var(--gruvbox-orange);
-    color: var(--gruvbox-bg);
-    border: none;
-    cursor: pointer;
-    /* Show pointer cursor */
-}
-
-.button.gruvbox-orange:hover {
-    background-color: var(--gruvbox-yellow);
-    color: var(--gruvbox-bg);
-}
-
-/* Media Image */
-.media-left .image {
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .media {
-        flex-direction: column;
-        /* Stack image and content vertically */
-        align-items: center;
-        text-align: center;
-    }
-
-    .media-left .image {
-        margin-bottom: 1rem;
-        /* Add spacing between image and content */
-    }
-}
-
-/* --- Footer Styles --- */
-.footer {
-    background-color: var(--gruvbox-secondary-bg);
-    border-top: 1px solid rgba(235, 219, 178, 0.2);
-    /* Subtle border with opacity */
-    padding: 1.5rem 0;
-    /* Adjust padding */
-}
-
-.footer p {
-    color: var(--gruvbox-fg);
-    font-size: 0.9rem;
-    /* Smaller font size */
-    margin: 0;
-    /* Remove default margin */
-}
-
-/* --- NAV-BAR MENU --- */
-
-/* Navbar Styles */
-#navbar {
-    left: 0;
+  .column {
     width: 100%;
-    transition: top 0.3s ease;
-    /* Smooth transition */
-    z-index: 1000;
-    /* Ensure it stays above other content */
-    top: 0;
-}
+  }
 
-/* Burger Menu Styles */
-.navbar-burger {
-    color: var(--gruvbox-fg);
-    /* Match the burger menu color to the navbar text */
-}
+  .card {
+    margin-top: 2rem;
+    max-width: 100%;
+  }
 
-.navbar-burger span {
-    background-color: var(--gruvbox-fg);
-    /* Color of the burger menu lines */
-    transition: all 0.3s ease;
-}
+  .buttons {
+    justify-content: center;
+  }
 
-/* Button Styles */
-.button.gruvbox-orange {
-    background-color: var(--gruvbox-orange);
-    color: var(--gruvbox-bg);
-    border: none;
-}
+  .buttons .button {
+    margin: 0.5rem;
+  }
 
-.button.gruvbox-orange:hover {
-    background-color: var(--gruvbox-yellow);
-    color: var(--gruvbox-bg);
-}
+  .media {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .column.is-one-third {
-        width: 100%;
-        /* Stack cards vertically on smaller screens */
-    }
-
-    .media {
-        flex-direction: column;
-        /* Stack image and content vertically */
-        align-items: center;
-        text-align: center;
-    }
-
-    .media-left .image {
-        margin-bottom: 1rem;
-        /* Add spacing between image and content */
-    }
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .columns.is-vcentered {
-        flex-direction: column;
-        /* Cambia a una columna en pantallas pequeñas */
-    }
-
-    .column.is-two-thirds {
-        width: 100%;
-        /* Ocupa todo el ancho en pantallas pequeñas */
-        padding-right: 0;
-        /* Elimina el padding derecho */
-    }
-
-    .card {
-        max-width: 100%;
-        /* La tarjeta ocupa todo el ancho en móviles */
-        margin-top: 2rem;
-        /* Espacio arriba de la tarjeta */
-    }
-
-    .buttons {
-        justify-content: center;
-        /* Centra los botones en móviles */
-    }
-
-    .buttons .button {
-        margin: 0.5rem;
-        /* Espacio entre botones en móviles */
-    }
+  .media-left .image {
+    margin-bottom: 1rem;
+  }
 }

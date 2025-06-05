@@ -45,26 +45,26 @@
   </div>
 </section>
 <!-- Projects Section -->
-<section class="section hero gruvbox-bg">
+<section class="section mt-1 is-fullheight hero gruvbox-bg" data-aos="fade-up" id="proyectos">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title is-2 gruvbox-orange" id="proyectos">Proyectos Destacados</h1>
+      <h1 class="title is-2 gruvbox-orange">Proyectos Destacados</h1>
       <p class="gruvbox-fg mb-4">
         Estos son algunos de mis proyectos más destacados y mejor pulidos. Si quieres ver más, visita mi
         <a target="_blank" class="gruvbox-cyan" href="https://github.com/elias-gill">GitHub</a>.
       </p>
-      {{ block "projects" . }} {{ end }}
       <div class="content is-small has-text-grey-light">
         <em>Otros proyectos incluyen:</em>
-        un ERP simple en Java, un CMS en Django, aplicaciones TUI en Go, algunos simluladores de físicas y
-        una implementación de HTTP/1.0.
+        un CMS en Django, aplicaciones TUI en Go, algunos simluladores de físicas y algunos
+        proyectos variados en Java, C y Zig.
       </div>
+      {{ block "projects" . }} {{ end }}
       <!-- Nota al pie -->
     </div>
   </div>
 </section>
 <!-- Contact section -->
-<section class="section hero gruvbox-bg">
+<section class="section hero gruvbox-bg" data-aos="fade-up">
   <div class="hero-body">
     <div class="container">
       <h1 class="title is-2 gruvbox-orange" id="contacto">Contacto</h1>
@@ -102,4 +102,10 @@
     </div>
   </div>
 </section>
+<!-- Animations -->
+<link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 {{ end }}

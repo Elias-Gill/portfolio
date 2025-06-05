@@ -1,280 +1,198 @@
-/* Box Styles */
+:root {
+    --bg: #1c1c1c;
+    --fg: #c9c7cd;
+    --fg-subtle: #9f9ca6;
+    --accent: #97D7BD;
+    --accent-muted: #5aa18c;
+    --code-bg: #2a2a2c;
+    --blockquote-bg: #222323;
+    --border: #353539;
+    --link: #C492b1;
+    --link-hover: #ebfcfb;
+    --heading: #ebfcfb;
+}
+
+/* General layout */
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg);
+    color: var(--fg);
+    margin: 0;
+    padding: 0;
+}
+
 .box {
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: none;
+    border-radius: 12px;
+    padding: 2.5rem;
+    background-color: #222323;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Title Styles */
+/* Title */
 .title.is-1 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+    color: var(--heading);
 }
 
-/* Markdown Content Styles */
+/* Markdown Styles */
 .markdown-content {
-    line-height: 1.8;
+    line-height: 1.75;
     font-size: 1.1rem;
-    color: var(--gruvbox-fg);
+    color: var(--fg);
 }
 
-/* Soft Gradient Styles for Titles */
-.markdown-content h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+    font-weight: 700;
+    color: var(--heading);
     margin-top: 2rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(5deg, var(--gruvbox-cyan), var(--gruvbox-fg), var(--gruvbox-cyan));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    margin-bottom: 1rem;
+}
+
+.markdown-content h1 {
+    font-size: 2.2rem;
 }
 
 .markdown-content h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-top: 1.75rem;
-    margin-bottom: 1.25rem;
-    background: linear-gradient(5deg, var(--gruvbox-orange), var(--gruvbox-fg), var(--gruvbox-orange));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 1.9rem;
 }
 
 .markdown-content h3 {
-    font-size: 1.75rem;
-    font-weight: bold;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(5deg, var(--gruvbox-green), var(--gruvbox-fg), var(--gruvbox-green));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 1.6rem;
 }
 
 .markdown-content h4 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 1.25rem;
-    margin-bottom: 0.75rem;
-    background: linear-gradient(5deg, var(--gruvbox-yellow), var(--gruvbox-fg), var(--gruvbox-yellow));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 1.4rem;
 }
 
 .markdown-content h5 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(5deg, var(--gruvbox-red), var(--gruvbox-fg), var(--gruvbox-red));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 1.2rem;
 }
 
 .markdown-content h6 {
     font-size: 1rem;
-    font-weight: bold;
-    margin-top: 0.75rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(5deg, var(--gruvbox-blue), var(--gruvbox-fg), var(--gruvbox-blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
 }
 
 .markdown-content p {
-    margin-bottom: 1rem;
-}
-
-.markdown-content code {
-    padding: 0.25rem 0.5rem;
-}
-
-.markdown-content pre {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    overflow-x: auto;
-}
-
-.markdown-content blockquote {
-    border-left: 4px solid var(--gruvbox-cyan);
-    padding: 1rem 1.5rem;
-    background-color: var(--gruvbox-bg-dark);
-    color: var(--gruvbox-fg);
-    margin: 1.5rem 0;
-    font-style: italic;
+    margin-bottom: 1.2rem;
 }
 
 .markdown-content a {
-    color: var(--gruvbox-fg);
+    color: var(--link);
     text-decoration: underline;
-    text-decoration-color: var(--gruvbox-yellow);
-    transition: color 0.22s ease;
+    transition: color 0.2s ease;
 }
 
 .markdown-content a:hover {
-    color: var(--gruvbox-yellow);
-    text-decoration: none;
+    color: var(--link-hover);
 }
 
-/* List Styles */
-.markdown-content ul,
-.markdown-content ol {
+.markdown-content code {
+    background-color: var(--code-bg);
+    color: var(--accent-pink);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.markdown-content pre code {
+    color: var(--fg);
+}
+
+.markdown-content pre {
+    background-color: var(--code-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
     margin: 1.5rem 0;
-    padding-left: 2rem;
+    font-family: monospace;
 }
 
+/* Blockquotes */
+.markdown-content blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    background-color: var(--blockquote-bg);
+    color: var(--fg-subtle);
+    font-style: italic;
+}
+
+/* Lists */
 .markdown-content ul {
     list-style-type: disc;
+    /* círculo sólido */
+    padding-left: 2rem;
+    margin: 1rem 0;
 }
 
 .markdown-content ol {
     list-style-type: decimal;
+    /* números */
+    padding-left: 2rem;
+    margin: 1rem 0;
 }
 
 .markdown-content li {
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
-}
-
-.markdown-content ul ul,
-.markdown-content ol ul {
-    list-style-type: circle;
-    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
-.markdown-content ol ol,
-.markdown-content ul ol {
-    list-style-type: lower-alpha;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Table Styles */
+/* Tables */
 .markdown-content table {
     width: 100%;
     border-collapse: collapse;
     margin: 1.5rem 0;
+    font-size: 0.95rem;
 }
 
 .markdown-content th,
 .markdown-content td {
     padding: 0.75rem;
-    border: 1px solid var(--gruvbox-bg-light);
-    text-align: left;
+    border: 1px solid var(--border);
 }
 
 .markdown-content th {
-    background-color: var(--gruvbox-bg-dark);
-    color: var(--gruvbox-cyan);
-    font-weight: bold;
+    background-color: var(--code-bg);
+    color: var(--accent-muted);
 }
 
 .markdown-content tr:nth-child(even) {
-    background-color: var(--gruvbox-bg-dark);
+    background-color: #1f1f1f;
 }
 
-/* Image Styles */
+/* Images */
 .markdown-content img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
     margin: 1.5rem 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Horizontal Rule Styles */
+/* Horizontal Rule */
 .markdown-content hr {
-    border: 0;
-    height: 2px;
-    background: linear-gradient(60deg, transparent, var(--gruvbox-cyan), transparent);
-    margin: 1rem 0;
+    border: none;
+    height: 1px;
+    background-color: var(--border);
+    margin: 2rem 0;
 }
 
-/* Responsive Design */
+/* Responsive tweaks */
 @media screen and (max-width: 768px) {
-    .container {
-        width: 100%;
-        max-width: 100%;
-        padding-left: 0;
-        padding-right: 0;
-        margin: 0;
+    .box {
+        padding: 1.5rem;
+        border-radius: 0;
     }
 
     .title.is-1 {
         font-size: 2rem;
-        /* Tamaño de fuente más pequeño en móviles */
     }
 
     .markdown-content {
         font-size: 1rem;
-        /* Tamaño de fuente más pequeño en móviles */
-    }
-
-    .markdown-content h1 {
-        font-size: 2rem;
-        /* Tamaño de fuente más pequeño en móviles */
-    }
-
-    .markdown-content h2 {
-        font-size: 1.75rem;
-        /* Tamaño de fuente más pequeño en móviles */
-    }
-
-    .markdown-content h3 {
-        font-size: 1.5rem;
-        /* Tamaño de fuente más pequeño en móviles */
-    }
-
-    .markdown-content h4 {
-        font-size: 1.25rem;
-        /* Tamaño de fuente más pequeño en móviles */
-    }
-
-    .markdown-content h5 {
-        font-size: 1rem;
-        /* Tamaño de fuente más pequeño en móviles */
-    }
-
-    .markdown-content h6 {
-        font-size: 0.9rem;
-        /* Tamaño de fuente más pequeño en móviles */
-    }
-
-    .section {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        border-radius: 0;
-        padding: 0;
-    }
-
-    .box {
-        border-radius: 0;
-        margin-right: 0;
-        margin-left: 0;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 100%;
-        border-radius: 0;
-        margin-right: 0;
-        margin-left: 0;
-        padding: 0;
-    }
-
-    body {
-        width: 100%;
-        max-width: 100%;
-        border-radius: 0;
-        margin-right: 0;
-        margin-left: 0;
-        padding: 0;
     }
 }
