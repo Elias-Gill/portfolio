@@ -2,34 +2,28 @@
 <link rel="stylesheet" href="/assets/css/blog.css">
 <section class="section is-fullheight gruvbox-bg">
   <div class="container">
-    <h1 class="title gruvbox-magenta">Últimos Posts</h1>
-    <div class="posts-list">
+    <h1 class="title gruvbox-magenta mb-6">Últimos Posts</h1>
+    <div class="blog-grid">
       {{ range .posts }}
-      <a href="/posts/{{ .Id }}" class="card is-bordered gruvbox-secondary-bg my-4">
-        <div class="card-content gruvbox-fg">
-          <!-- Media (Image and Content) -->
-          <div class="media">
-            <!-- Image -->
-            <figure class="media-left">
-              <img 
-              src="{{ if fileExists .Image }}/media/{{ .Image }}{{ else }}/assets/no_image.webp{{ end }}" 
-              alt="{{ .Title }}" 
-              class="image is-128x128">
-            </figure>
-            <!-- Content -->
-            <div class="media-content">
-              <p class="title gruvbox-cyan is-5">{{ if .Title }}{{ .Title }}{{ else }}{{ .Id }}{{ end }}</p>
-              <p class="content">{{ .Description }}</p>
-              <!-- Footer (Date and Read More Button) -->
-              <div class="level is-mobile">
-                <div class="level-left">
-                  <p class="is-size-7 gruvbox-magenta">
-                    <span class="mr-1">Publicado:</span>{{ .Date }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <a href="/posts/{{ .Id }}" class="card blog-card">
+        <!-- Imagen -->
+        <figure class="card-image">
+          <img 
+            src="{{ if fileExists .Image }}/media/{{ .Image }}{{ else }}/assets/no_image.webp{{ end }}" 
+            alt="{{ .Title }}" 
+            class="image is-4by3">
+        </figure>
+        <!-- Contenido -->
+        <div class="card-content">
+          <h2 class="title is-5 gruvbox-cyan mb-2">
+            {{ if .Title }}{{ .Title }}{{ else }}Post #{{ .Id }}{{ end }}
+          </h2>
+          <p class="content gruvbox-fg is-size-6 mb-3">
+            {{ .Description }}
+          </p>
+          <p class="is-size-7 has-text-grey-light">
+            Publicado: {{ .Date }}
+          </p>
         </div>
       </a>
       {{ end }}
