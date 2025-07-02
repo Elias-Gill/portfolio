@@ -28,6 +28,7 @@
     transform: translateY(50px);
     transition: all 0.6s ease-out;
 }
+
 .reveal.visible {
     opacity: 1;
     transform: none;

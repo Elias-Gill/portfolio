@@ -37,7 +37,7 @@
     border-radius: 8px;
 }
 
-.slides > div {
+.slides>div {
     scroll-snap-align: start;
     flex-shrink: 0;
     width: 100%;
@@ -92,7 +92,7 @@
         flex-direction: column;
     }
 
-    .slides > div {
+    .slides>div {
         height: 150px;
     }
 }
