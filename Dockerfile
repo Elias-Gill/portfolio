@@ -1,25 +1,28 @@
-ARG GO_VERSION=1
-FROM golang:${GO_VERSION}-bookworm as builder
+# ---- etapa de compilación ----
+FROM golang:1.23-alpine AS builder
 
-# Configurar el directorio de trabajo y copiar los archivos necesarios
-WORKDIR /usr/src/app
+# Instala dependencias necesarias para compilar
+RUN apk add --no-cache git
+
+WORKDIR /src
 COPY go.mod go.sum ./
-RUN go mod download && go mod verify
+RUN go mod download
+
 COPY . .
-RUN go build -v -o /run-app .
+# CGO_ENABLED=0 genera binario estático
+RUN CGO_ENABLED=0 go build -o /run-app .
 
-# Crear la imagen final
-FROM debian:bookworm
+# ---- imagen final ----
+FROM alpine:3.20
 
-# Instalar git en la imagen final
-RUN apt-get update && apt-get install -y git
+# Instala git en la imagen final (lo que pediste)
+RUN apk add --no-cache git
 
-# Copiar el binario generado
-COPY --from=builder /run-app /usr/local/bin/
+# Copia el binario
+COPY --from=builder /run-app /usr/local/bin/run-app
 
-# Copiar todo el contenido del proyecto (templates, estáticos, etc.)
+# Copia assets (templates, estáticos…)
 WORKDIR /app
-COPY --from=builder /usr/src/app ./
+COPY --from=builder /src ./
 
-# Comando de ejecución
 CMD ["run-app"]
