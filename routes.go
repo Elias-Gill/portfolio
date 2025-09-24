@@ -2,142 +2,147 @@ package main
 
 import (
 	"bytes"
-	"errors"
+	"crypto/hmac"
+	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"html/template"
-	"io/fs"
-	"log"
+	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
 	"strings"
+	"sync"
 
+	"github.com/elias-gill/portfolio/logger"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting"
 	meta "github.com/yuin/goldmark-meta"
 )
 
-// Generates an extended template using the base.html template
-// to ensure a consistent layout and structure across all pages.
-func renderTemplates(templates ...string) (*template.Template, error) {
-	// Add helper functions
-	funcMap := template.FuncMap{
-		"fileExists": func(path string) bool {
-			if path == "" {
-				return false
-			}
-			_, err := os.Stat(path)
-			return !errors.Is(err, fs.ErrExist)
-		},
+var (
+	// Goldmark parser global
+	md = goldmark.New(
+		goldmark.WithExtensions(
+			meta.Meta,
+			highlighting.NewHighlighting(highlighting.WithStyle("base16-snazzy")),
+		),
+	)
+
+	// Cache solo de base + parciales
+	baseTemplates     *template.Template
+	baseTemplatesOnce sync.Once
+
+	// I dont know a better name, but here is where the source code is stored, so we can load
+	// templates and assets
+	resourcesPath        = "."
+	assets_path          string
+	posts_media_path     string
+	templates_path       string
+	templates_pages_path string
+)
+
+func RegisterRoutes() {
+	secret = logger.GetEnvVarAndLog("WEBHOOK_SECRET")
+	blogPath = logger.GetEnvVarAndLog("BLOG_PATH")
+
+	envResourcesPath := logger.GetEnvVarAndLog("RESOURCES_PATH")
+	if envResourcesPath != "" {
+		resourcesPath = envResourcesPath
 	}
 
-	// Create a new template with the FuncMap
-	tmpl := template.New("").Funcs(funcMap)
+	posts_media_path = path.Join(blogPath, "media")
+	assets_path = path.Join(resourcesPath, "assets")
+	templates_path = path.Join(resourcesPath, "templates")
+	templates_pages_path = path.Join(templates_path, "pages")
 
-	// Append the base templates to the list of templates
-	base := path.Join(resourcesPath, "./templates/base.html")
-	footer := path.Join(resourcesPath, "./templates/footer.html")
-	navbar := path.Join(resourcesPath, "./templates/navbar.html")
+	// route for serving static files
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(assets_path))))
 
-	tmpls := append(templates, base, footer, navbar)
+	// route for serving posts media and attachments
+	http.Handle("/media/", http.StripPrefix("/media/", http.FileServer(http.Dir(posts_media_path))))
 
-	// Parse all templates
-	tmpl, err := tmpl.ParseFiles(tmpls...)
-	if err != nil {
-		log.Print(err.Error())
-		return nil, err
-	}
+	// pages
+	http.HandleFunc("/webhook", handleWebhook)
+	http.HandleFunc("/", serveAboutMe)
+	http.HandleFunc("/posts/", serveBlog)
+	http.HandleFunc("/posts/{post}/", servePostDetail)
 
-	return tmpl, nil
+	// search engines indexing
+	http.HandleFunc("/robots.txt", handleRobots)
+}
+
+// ============================================
+// 			Route handlers
+// ============================================
+
+func handleRobots(w http.ResponseWriter, r *http.Request) {
+	robotsTxt := `User-agent: *
+	Allow: /
+	`
+	w.Header().Set("Content-Type", "text/plain")
+	w.Write([]byte(robotsTxt))
 }
 
 func serveAboutMe(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := renderTemplates("./pages/home/home.html", "./pages/home/projects.html",
-		"./pages/home/tecnologias.html")
-	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
-		return
-	}
-
-	if err = tmpl.ExecuteTemplate(w, "base.html", nil); err != nil {
-		log.Printf("Template execution error: %s\n", err.Error())
-	}
+	renderTemplates(
+		path.Join(templates_pages_path, "home", "home.html"),
+		nil,
+		w,
+	)
 }
 
 func serveBlog(w http.ResponseWriter, r *http.Request) {
 	files, err := os.ReadDir(blogPath)
 	if err != nil {
-		log.Printf("Cannot open posts folder")
-		http.Error(w, "Error fetching posts", http.StatusInternalServerError)
+		respondError(w, "Cannot open posts folder", err, http.StatusInternalServerError)
 		return
 	}
 
 	var posts []Metadata
 	for _, f := range files {
-		// Ignore non markdown files
 		if !strings.HasSuffix(f.Name(), ".md") {
 			continue
 		}
 
 		data, err := extractMetaFromDirEntry(f)
 		if err != nil {
+			logger.Warn("Failed to extract metadata", "file", f.Name(), "error", err)
 			continue
 		}
 		posts = append(posts, *data)
 	}
 
-	tmp, err := renderTemplates("./pages/posts/list.html")
-	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
-		log.Println(err.Error())
-		return
-	}
-
-	err = tmp.ExecuteTemplate(w, "base.html", map[string]interface{}{"posts": posts})
-	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
-		log.Println(err.Error())
-		return
-	}
+	renderTemplates(
+		path.Join(templates_pages_path, "posts", "list.html"),
+		map[string]any{"posts": posts},
+		w,
+	)
 }
 
 func servePostDetail(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("post")
+	if id == "" || strings.Contains(id, "..") {
+		respondError(w, "Invalid post path", nil, http.StatusBadRequest)
+		return
+	}
+
 	file, err := os.ReadFile(path.Join(blogPath, id))
 	if err != nil {
 		http.NotFound(w, r)
 		return
 	}
 
-	markdown := goldmark.New(
-		goldmark.WithExtensions(
-			meta.Meta,
-			highlighting.NewHighlighting(
-				highlighting.WithStyle("base16-snazzy"),
-			),
-		),
-	)
-
-	// markdown parsing
 	var content bytes.Buffer
-	err = markdown.Convert(file, &content)
-	if err != nil {
-		http.Error(w, "Error laoding file", http.StatusInternalServerError)
-		log.Println(err.Error())
+	if err := md.Convert(file, &content); err != nil {
+		respondError(w, "Error loading markdown file", err, http.StatusInternalServerError)
+		return
 	}
 
 	data, err := extractPostMetadata(id)
 	if err != nil {
-		http.Error(w, "Error laoding file metadata", http.StatusInternalServerError)
-		log.Println(err.Error())
-		return
-	}
-
-	// template generation
-	tmpl, err := renderTemplates("./pages/posts/detail.html")
-	if err != nil {
-		http.Error(w, "Error laoding template", http.StatusInternalServerError)
-		log.Println(err.Error())
+		respondError(w, "Error loading file metadata", err, http.StatusInternalServerError)
 		return
 	}
 
@@ -145,11 +150,16 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 		Content: template.HTML(content.String()),
 		Meta:    data,
 	}
-	tmpl.ExecuteTemplate(w, "base.html", &post)
+
+	renderTemplates(
+		path.Join(templates_pages_path, "posts", "detail.html"),
+		&post,
+		w,
+	)
 }
 
 func handleWebhook(w http.ResponseWriter, r *http.Request) {
-	// Verify the secret (optional but recommended for security)
+	// Verify the secret
 	if !verifySecret(r) {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
@@ -164,4 +174,119 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Repository updated successfully"))
+}
+
+// ============================================
+// 			Template rendering
+// ============================================
+
+func initBaseTemplates() {
+	baseTemplatesOnce.Do(func() {
+		// Registrar las helpers-funcs para las plantillas
+		funcMap := template.FuncMap{
+			"fileExists": fileExists,
+		}
+
+		baseTemplates = template.New("").Funcs(funcMap)
+
+		files := []string{
+			path.Join(templates_path, "base.html"),
+			path.Join(templates_path, "navbar.html"),
+			path.Join(templates_path, "footer.html"),
+		}
+
+		var err error
+		baseTemplates, err = baseTemplates.ParseFiles(files...)
+		if err != nil {
+			logger.Error("Error parsing base templates", "error", err)
+		}
+	})
+}
+
+func renderTemplates(pageFile string, data any, w http.ResponseWriter) {
+	initBaseTemplates()
+
+	// Clonar la base para que cada página tenga su propio bloque content
+	tmpl, err := baseTemplates.Clone()
+	if err != nil {
+		respondError(w, "Error cloning base template", err, http.StatusInternalServerError)
+		return
+	}
+
+	// Parsear solo la página específica
+	tmpl, err = tmpl.ParseFiles(pageFile)
+	if err != nil {
+		respondError(w, fmt.Sprintf("Error parsing page template %s", pageFile), err, http.StatusInternalServerError)
+		return
+	}
+
+	// Ejecutar la base, que ahora contiene el content de la página
+	if err := tmpl.ExecuteTemplate(w, "base.html", data); err != nil {
+		respondError(w, fmt.Sprintf("Template execution error for %s", pageFile), err, http.StatusInternalServerError)
+	}
+}
+
+// ============================================
+// 		Utilities and helper functions
+// ============================================
+
+// Helper para centralizar errores HTTP
+func respondError(w http.ResponseWriter, msg string, err error, code int) {
+	if err != nil {
+		logger.Error(msg, "error", err)
+	} else {
+		logger.Warn(msg)
+	}
+	http.Error(w, msg, code)
+}
+
+// FileExists helper
+func fileExists(dir string) bool {
+	if dir == "" {
+		return false
+	}
+	_, err := os.Stat(path.Join(posts_media_path, dir))
+	return err == nil
+}
+
+func verifySecret(r *http.Request) bool {
+	// Get the signature from the request header
+	signature := r.Header.Get("X-Hub-Signature")
+	if signature == "" {
+		return false
+	}
+
+	// Read the request body
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		return false
+	}
+	defer r.Body.Close()
+
+	// Compute the HMAC signature
+	mac := hmac.New(sha1.New, []byte(secret))
+	mac.Write(body)
+	expectedSignature := "sha1=" + hex.EncodeToString(mac.Sum(nil))
+
+	// Compare the signatures
+	return hmac.Equal([]byte(signature), []byte(expectedSignature))
+}
+
+// If the repository does not exist at the specified path, it clones the repository.
+func gitPull() error {
+	// Pull the latest changes if the repository exists
+	cmd := exec.Command("git", "pull", "origin", "master")
+	cmd.Dir = blogPath
+
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &out
+
+	err := cmd.Run()
+	if err != nil {
+		return fmt.Errorf("git pull failed: %v, output: %s", err, out.String())
+	}
+
+	logger.Info("Updated repo succesfully")
+	return nil
 }
