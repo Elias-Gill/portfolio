@@ -1,6 +1,36 @@
 {{ define "projects" }}
 <link rel="stylesheet" href="/assets/css/slides.css">
 <div class="columns is-multiline">
+    <!-- Project 4: poliplanner -->
+    <div class="column is-one-third">
+        <article class="message is-bordered">
+            <div class="message-header">
+                <p>PoliPlanner</p>
+            </div>
+            <div class="message-body">
+                <div class="slider">
+                    <div class="slides">
+                        <div id="poliplanner-1">
+                            <img src="/assets/projects/poliplanner_1.webp" alt="poliplanner 1">
+                        </div>
+                        <div id="poliplanner-2">
+                            <img src="/assets/projects/poliplanner_2.webp" alt="poliplanner 2">
+                        </div>
+                    </div>
+                    <div class="slider-nav">
+                        <a href="#poliplanner-1" aria-label="Slide 1"></a>
+                        <a href="#poliplanner-2" aria-label="Slide 2"></a>
+                    </div>
+                </div>
+                <p class="content is-small has-text-justified mt-3">
+                Aplicación web que permitía a los estudiantes de la FPUNA crear y comparar
+                horarios académicos de forma automática, sincronizando con los Excel oficiales
+                de la universidad. Fue utilizada por más del 60% del alumnado <strong>(2,100+ usuarios)</strong>
+                antes de ser reemplazada por la aplicación oficial universitaria.</p>
+            </div>
+        </article>
+    </div>
+
   <!-- Project 1: Walldo -->
   <div class="column is-one-third">
     <article class="message is-bordered">
@@ -26,13 +56,17 @@
             <a href="#walldo-3" aria-label="Slide 3"></a>
           </div>
         </div>
-        <p class="content is-small has-text-justified mt-3">
-          Walldo es un cambiador de fondos de pantalla ligero y rápido. Lo creé porque no encontraba una
-          alternativa para Windows que fuera lo suficientemente rápida y minimalista.
+        <p class="content is-small has-text-justified mt-3"> 
+            Walldo es un cambiador de fondos de pantalla ligero, rápido y multiplataforma. Permite
+            configurar varias carpetas y listar las imágenes dentro de ellas de manera recursiva. Fue
+            creado como alternativa ante la frustración con las aplicaciones existentes, que suelen ser
+            pesadas y lentas. Su diseño minimalista se inspira en herramientas similares de Linux, como
+            Nitrogen.
         </p>
       </div>
     </article>
   </div>
+
   <!-- Project 2: Interprete REPL -->
   <div class="column is-one-third">
     <article class="message is-bordered">
@@ -59,13 +93,15 @@
           </div>
         </div>
         <p class="content is-small has-text-justified mt-3">
-          El lenguaje es sencillo, con una sintaxis inspirada en C. Soporta operaciones aritméticas, ciclos,
-          condicionales if-else, recursividad y funciones anónimas. Puedes verlo en accion
-          <a style="color: var(--gruvbox-magenta) " href="https://interpreter-server.fly.dev">aquí</a>.
-        </p>
+            Este proyecto consiste en un intérprete para un lenguaje inventado.
+            Desarrollado como ejercicio para profundizar en arquitectura de software y técnicas
+            de parsing. El lenguaje tiene una sintaxis sencilla, inspirada en C, y soporta
+            operaciones aritméticas, ciclos, condicionales if-else, recursividad y funciones
+            anónimas. Puedes verlo en acción <a href="https://interpreter-server.fly.dev">aquí</a>.</p>
       </div>
     </article>
   </div>
+
   <!-- Project 3: yt_player -->
   <div class="column is-one-third">
     <article class="message is-bordered">
@@ -95,6 +131,7 @@
     </article>
   </div>
 </div>
+
 <!-- Contenedor para la imagen ampliada -->
 <div id="overlay" class="overlay">
   <span class="close-btn">&times;</span>

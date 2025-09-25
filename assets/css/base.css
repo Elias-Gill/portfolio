@@ -21,11 +21,15 @@ html {
     font-family: system-ui, sans-serif;
 }
 
+section {
+    scroll-margin-top: 17vh;
+}
+
 /* Card Styles */
 .card {
     background-color: var(--bg-dark);
     color: var(--fg);
-    border-radius: 8px;
+    border-radius: 2px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(20, 20, 20, 0.2);
     margin: 0 auto;
@@ -49,13 +53,12 @@ a.card:hover {
     color: var(--bg);
     border: none;
     padding: 0.6em 1.2em;
-    border-radius: 6px;
+    border-radius: 2px;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
 .button:hover {
-    /* background-color: var(--dim); */
     color: var(--accent-cyan);
     outline: 1px solid var(--accent-cyan);
     transition: all 120ms;
@@ -107,7 +110,7 @@ a:hover {
 
 /* Media */
 .media-left .image {
-    border-radius: 8px;
+    border-radius: 2px;
     overflow: hidden;
 }
 
@@ -122,7 +125,7 @@ a:hover {
 .highlight {
     background-color: var(--bg-highlight);
     padding: 0.2em 0.4em;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 /* Responsive Design */

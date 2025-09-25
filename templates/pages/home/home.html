@@ -22,10 +22,10 @@
               que utilizo, con un especial interés en entornos basados en la línea de comandos.
             </p>
           </div>
-          <h2 class="title is-4 gruvbox-cyan">Tecnologías</h2>
+          <h2 class="title is-4 gruvbox-cyan">Experiencia en</h2>
           {{ block "tecnologias" . }} {{ end }}
           <!-- Botones movidos aquí -->
-          <div class="buttons mt-4">
+          <div class="buttons mt-6">
             <a href="#proyectos" class="button is-link gruvbox-cyan-bg mr-3">Ver mis proyectos</a>
             <a href="#contacto" class="button is-link gruvbox-cyan-bg mr-3">Contactarme</a>
           </div>
@@ -36,7 +36,7 @@
             <div class="card-image">
               <figure class="video">
                 <video autoplay loop muted playsinline>
-                  <source src="/assets/yo.mp4" type="video/mp4">
+                  <source src="/assets/yo.webm" type="video/webm">
                   Your browser does not support the video tag.
                 </video>
                 <figcaption class="is-hidden">Mi perfil en acción</figcaption>
@@ -48,64 +48,53 @@
     </div>
   </div>
 </section>
-<!-- Projects Section -->
-<section class="section mt-1 is-fullheight hero gruvbox-bg" data-aos="fade-up" id="proyectos">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title is-2 gruvbox-orange">Proyectos Destacados</h1>
-      <p class="gruvbox-fg mb-4">
-        Estos son algunos de mis proyectos más destacados y mejor pulidos. Si quieres ver más, visita mi
-        <a target="_blank" class="gruvbox-cyan" href="https://github.com/elias-gill">GitHub</a>.
-      </p>
-      <div class="content is-small has-text-grey-light">
-        <em>Otros proyectos incluyen:</em>
-        un CMS en Django, aplicaciones TUI en Go, algunos simluladores de físicas y algunos
-        proyectos variados en Java, C y Zig.
-      </div>
-      {{ block "projects" . }} {{ end }}
-      <!-- Nota al pie -->
-    </div>
+
+<!-- Projects Section - Fondo diferente y más compacto -->
+<section class="section py-5" style="background-color: var(--bg-dark);" data-aos="fade-up" id="proyectos">
+  <div class="container mt-2">
+    <h1 class="title is-2 gruvbox-orange">Proyectos Destacados</h1>
+    <p class="gruvbox-fg mb-4">
+      Estos son algunos de mis proyectos más destacados y mejor pulidos. Si quieres ver más, visita mi
+      <a target="_blank" class="gruvbox-cyan" href="https://github.com/elias-gill">GitHub</a>.
+    </p>
+    {{ block "projects" . }} {{ end }}
   </div>
 </section>
-<!-- Contact section -->
-<section class="section hero gruvbox-bg" data-aos="fade-up">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title is-2 gruvbox-orange" id="contacto">Contacto</h1>
-      <div class="content gruvbox-fg">
-        <p>
-          Si estás interesado en colaborar, tienes alguna pregunta o simplemente quieres charlar sobre tecnología, no dudes en contactarme. ¡Estoy siempre abierto a nuevas oportunidades y conversaciones interesantes!
-        </p>
-        <div class="columns">
-          <!-- Columna única: Información de contacto -->
-          <div class="column">
-            <h2 class="title is-4 gruvbox-cyan">¿Cómo contactarme?</h2>
-            <ul>
-              <li>
-                <strong>LinkedIn:</strong>
-                <a href="https://www.linkedin.com/in/elias-sebastian-gill-quinatana-87551b241" target="_blank"
-                      class="gruvbox-cyan">in/elias-sebastian-gill-quinatana-87551b241</a>
-              </li>
-              <li>
-                <strong>Correo electrónico:</strong>
-                <a href="mailto:eliasgill42@gmail.com" class="gruvbox-cyan">eliasgill42@gmail.com</a>
-              </li>
-              <li>
-                <strong>GitHub:</strong>
-                <a href="https://github.com/elias-gill" target="_blank"
-                  class="gruvbox-cyan">github.com/elias-gill</a>
-              </li>
-              <li>
-                <strong>Instagram:</strong>
-                <a href="https://instagram.com/elias.gill" target="_blank" class="gruvbox-cyan">@elias.gill</a>
-              </li>
-            </ul>
-          </div>
+
+<!-- Contact section - Fondo diferente y más compacto -->
+<section class="section my-5" data-aos="fade-up" id="contacto">
+  <div class="container">
+    <h1 class="title is-2 gruvbox-orange">Contacto</h1>
+    <div class="content gruvbox-fg">
+      <p>
+        Si estás interesado en colaborar, tienes alguna pregunta o simplemente quieres charlar sobre tecnología, no dudes en contactarme. ¡Estoy siempre abierto a nuevas oportunidades y conversaciones interesantes!
+      </p>
+      <div class="columns">
+        <!-- Columna única: Información de contacto -->
+        <div class="column">
+          <h2 class="title is-4 gruvbox-cyan">¿Cómo contactarme?</h2>
+          <ul>
+            <li>
+              <strong>LinkedIn:</strong>
+              <a href="https://www.linkedin.com/in/elias-sebastian-gill-quinatana-87551b241" target="_blank"
+                    class="gruvbox-cyan">in/elias-sebastian-gill-quinatana-87551b241</a>
+            </li>
+            <li>
+              <strong>Correo electrónico:</strong>
+              <a href="mailto:eliasgill42@gmail.com" class="gruvbox-cyan">eliasgill42@gmail.com</a>
+            </li>
+            <li>
+              <strong>GitHub:</strong>
+              <a href="https://github.com/elias-gill" target="_blank"
+                class="gruvbox-cyan">github.com/elias-gill</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <!-- Animations -->
 <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
