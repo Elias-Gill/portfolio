@@ -1,6 +1,6 @@
 :root {
     --bg: #222323;
-    --fg: #ebdbff;
+    --fg: #dedede;
     --accent-pink: #C492b1;
     --accent-cyan: #97D7BD;
     --accent-orange: #e6b99d;
@@ -62,13 +62,6 @@ a.card:hover {
     color: var(--accent-cyan);
     outline: 1px solid var(--accent-cyan);
     transition: all 120ms;
-}
-
-/* Typography Accents */
-h1,
-h2,
-h3 {
-    color: var(--accent-pink);
 }
 
 a {

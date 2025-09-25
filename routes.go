@@ -119,7 +119,7 @@ func serveBlogIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	renderTemplates(
-		[]string{path.Join(templates_pages_path, "posts", "list.html")},
+		[]string{path.Join(templates_pages_path, "posts", "blogIndex.html")},
 		map[string]any{"posts": posts},
 		w,
 	)
@@ -156,7 +156,7 @@ func serveBlogpostDetail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	renderTemplates(
-		[]string{path.Join(templates_pages_path, "posts", "detail.html")},
+		[]string{path.Join(templates_pages_path, "posts", "blogpostDetail.html")},
 		&post,
 		w,
 	)

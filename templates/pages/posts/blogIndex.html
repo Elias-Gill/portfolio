@@ -1,0 +1,82 @@
+{{ define "content" }}
+<section class="section py-3 gruvbox-bg">
+  <div class="container">
+    <h1 class="title is-2 has-text-centered my-6">Últimos Posts</h1>
+    {{ if .posts }}
+    {{ $featured := index .posts 0 }}
+    <!-- Fila superior: Post destacado + 1 post lateral -->
+    <div class="columns mb-4">
+      <!-- Post destacado -->
+      <div class="column is-7">
+        <article class="card">
+          <a href="/posts/{{ $featured.Id }}" class="card-image">
+            <figure class="image is-2by1">
+              <img 
+                src="{{ if fileExists $featured.Image }}/media/{{ $featured.Image }}{{ else }}/assets/no_image.webp{{ end }}" 
+                alt="{{ $featured.Title }}">
+            </figure>
+          </a>
+          <div class="card-content p-3" style="background-color: var(--bg-dark);">
+            <a href="/posts/{{ $featured.Id }}" class="title is-4 mb-2" style="color: var(--accent-cyan); display: block;">
+              {{ if $featured.Title }}{{ $featured.Title }}{{ else }}Post #{{ $featured.Id }}{{ end }}
+            </a>
+            <p class="is-size-6 mb-2" style="color: var(--fg);">
+              {{ $featured.Description }}
+            </p>
+            <span class="tag is-small" style="background-color: var(--bg-highlight); color: var(--muted);">
+              {{ $featured.Date }}
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Fila inferior: Resto de posts en grid de 3 columnas -->
+    <div class="columns is-multiline">
+      {{ range $index, $post := .posts }}
+      <div class="column is-one-third">
+        <article class="card">
+          <a href="/posts/{{ $post.Id }}" class="card-image">
+            <figure class="image is-2by1">
+              <img 
+                  src="{{ if fileExists $post.Image }}/media/{{ $post.Image }}{{ else }}/assets/no_image.webp{{ end }}" 
+                  alt="{{ $post.Title }}">
+            </figure>
+          </a>
+          <div class="card-content p-3" style="background-color: var(--bg-dark);">
+            <a href="/posts/{{ $post.Id }}" class="title is-4 mb-2" style="color: var(--accent-cyan); display: block;">
+              {{ if $post.Title }}{{ $post.Title }}{{ else }}Post #{{ $post.Id }}{{ end }}
+            </a>
+            <p class="is-size-7 mb-2" style="color: var(--fg);">
+              {{ if gt (len $post.Description) 80 }}
+              {{ slice $post.Description 0 80 }}...
+              {{ else }}
+              {{ $post.Description }}
+              {{ end }}
+            </p>
+            <span class="tag is-small" style="background-color: var(--bg-highlight); color: var(--muted);">
+              {{ $post.Date }}
+            </span>
+          </div>
+        </article>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</section>
+<style>
+  .card {
+    border: 1px solid var(--border);
+    border-radiuos: 2px;
+    transition: transform 0.2s ease;
+    margin-bottom: 1rem;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+{{ end }}
