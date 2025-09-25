@@ -5,9 +5,9 @@
     {{ if .posts }}
     {{ $featured := index .posts 0 }}
     <!-- Fila superior: Post destacado + 1 post lateral -->
-    <div class="columns mb-4">
+    <div class="columns mb-4 is-flex is-justify-content-center">
       <!-- Post destacado -->
-      <div class="column is-7">
+      <div class="column is-6">
         <article class="card">
           <a href="/posts/{{ $featured.Id }}" class="card-image">
             <figure class="image is-2by1">
@@ -48,11 +48,7 @@
               {{ if $post.Title }}{{ $post.Title }}{{ else }}Post #{{ $post.Id }}{{ end }}
             </a>
             <p class="is-size-7 mb-2" style="color: var(--fg);">
-              {{ if gt (len $post.Description) 80 }}
-              {{ slice $post.Description 0 80 }}...
-              {{ else }}
               {{ $post.Description }}
-              {{ end }}
             </p>
             <span class="tag is-small" style="background-color: var(--bg-highlight); color: var(--fg);">
               {{ $post.Date }}
