@@ -17,6 +17,8 @@ func GetEnvVarAndLog(key string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
 		logger.Warn("Environment variable is not set", "variable", key)
+	} else {
+		logger.Warn("Variable setted", "variable", key, "value", value)
 	}
 	return value
 }

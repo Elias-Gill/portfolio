@@ -7,12 +7,13 @@
 .card-image video {
     width: 100%;
     height: auto;
-    /* Altura automática para mantener la proporción */
     display: block;
     object-fit: cover;
-    /* Cubre el espacio sin distorsión */
     transition: transform 1s ease, opacity 1s ease;
-    /* Transición suave para transform y opacidad */
+}
+
+.card-image img {
+    object-fit: contain;
 }
 
 .card-image:hover img,

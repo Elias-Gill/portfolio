@@ -30,36 +30,37 @@
         </article>
       </div>
     </div>
-
     <!-- Fila inferior: Resto de posts en grid de 3 columnas -->
     <div class="columns is-multiline">
       {{ range $index, $post := .posts }}
-      <div class="column is-one-third">
-        <article class="card">
-          <a href="/posts/{{ $post.Id }}" class="card-image">
-            <figure class="image is-2by1">
-              <img 
-                  src="{{ if fileExists $post.Image }}/media/{{ $post.Image }}{{ else }}/assets/no_image.webp{{ end }}" 
-                  alt="{{ $post.Title }}">
-            </figure>
-          </a>
-          <div class="card-content p-3" style="background-color: var(--bg-dark);">
-            <a href="/posts/{{ $post.Id }}" class="title is-4 mb-2" style="color: var(--accent-cyan); display: block;">
-              {{ if $post.Title }}{{ $post.Title }}{{ else }}Post #{{ $post.Id }}{{ end }}
-            </a>
-            <p class="is-size-7 mb-2" style="color: var(--fg);">
-              {{ if gt (len $post.Description) 80 }}
-              {{ slice $post.Description 0 80 }}...
-              {{ else }}
-              {{ $post.Description }}
-              {{ end }}
-            </p>
-            <span class="tag is-small" style="background-color: var(--bg-highlight); color: var(--fg);">
-              {{ $post.Date }}
-            </span>
+          {{ if ne $index 0 }}
+          <div class="column is-one-third">
+              <article class="card">
+                  <a href="/posts/{{ $post.Id }}" class="card-image">
+                      <figure class="image is-2by1">
+                          <img 
+                          src="{{ if fileExists $post.Image }}/media/{{ $post.Image }}{{ else }}/assets/no_image.webp{{ end }}" 
+                          alt="{{ $post.Title }}">
+                      </figure>
+                  </a>
+                  <div class="card-content p-3" style="background-color: var(--bg-dark);">
+                      <a href="/posts/{{ $post.Id }}" class="title is-4 mb-2" style="color: var(--accent-cyan); display: block;">
+                          {{ if $post.Title }}{{ $post.Title }}{{ else }}Post #{{ $post.Id }}{{ end }}
+                      </a>
+                      <p class="is-size-7 mb-2" style="color: var(--fg);">
+                      {{ if gt (len $post.Description) 80 }}
+                      {{ slice $post.Description 0 80 }}...
+                      {{ else }}
+                      {{ $post.Description }}
+                      {{ end }}
+                      </p>
+                      <span class="tag is-small" style="background-color: var(--bg-highlight); color: var(--fg);">
+                          {{ $post.Date }}
+                      </span>
+                  </div>
+              </article>
           </div>
-        </article>
-      </div>
+          {{ end }}
       {{ end }}
     </div>
     {{ end }}
@@ -76,7 +77,7 @@
   .card-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 </style>
 {{ end }}
