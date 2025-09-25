@@ -65,9 +65,9 @@ func RegisterRoutes() {
 
 	// pages
 	http.HandleFunc("/webhook", handleWebhook)
-	http.HandleFunc("/", serveAboutMe)
-	http.HandleFunc("/posts/", serveBlog)
-	http.HandleFunc("/posts/{post}/", servePostDetail)
+	http.HandleFunc("/", serveHomePage)
+	http.HandleFunc("/posts/", serveBlogIndex)
+	http.HandleFunc("/posts/{post}/", serveBlogpostDetail)
 
 	// search engines indexing
 	http.HandleFunc("/robots.txt", handleRobots)
@@ -85,15 +85,19 @@ func handleRobots(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(robotsTxt))
 }
 
-func serveAboutMe(w http.ResponseWriter, r *http.Request) {
+func serveHomePage(w http.ResponseWriter, r *http.Request) {
 	renderTemplates(
-		path.Join(templates_pages_path, "home", "home.html"),
+		[]string{
+			path.Join(templates_pages_path, "home", "home.html"),
+			path.Join(templates_pages_path, "home", "projects.html"),
+			path.Join(templates_pages_path, "home", "tecnologias.html"),
+		},
 		nil,
 		w,
 	)
 }
 
-func serveBlog(w http.ResponseWriter, r *http.Request) {
+func serveBlogIndex(w http.ResponseWriter, r *http.Request) {
 	files, err := os.ReadDir(blogPath)
 	if err != nil {
 		respondError(w, "Cannot open posts folder", err, http.StatusInternalServerError)
@@ -115,13 +119,13 @@ func serveBlog(w http.ResponseWriter, r *http.Request) {
 	}
 
 	renderTemplates(
-		path.Join(templates_pages_path, "posts", "list.html"),
+		[]string{path.Join(templates_pages_path, "posts", "list.html")},
 		map[string]any{"posts": posts},
 		w,
 	)
 }
 
-func servePostDetail(w http.ResponseWriter, r *http.Request) {
+func serveBlogpostDetail(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("post")
 	if id == "" || strings.Contains(id, "..") {
 		respondError(w, "Invalid post path", nil, http.StatusBadRequest)
@@ -152,7 +156,7 @@ func servePostDetail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	renderTemplates(
-		path.Join(templates_pages_path, "posts", "detail.html"),
+		[]string{path.Join(templates_pages_path, "posts", "detail.html")},
 		&post,
 		w,
 	)
@@ -203,26 +207,33 @@ func initBaseTemplates() {
 	})
 }
 
-func renderTemplates(pageFile string, data any, w http.ResponseWriter) {
+func renderTemplates(pageFiles []string, data any, w http.ResponseWriter) {
 	initBaseTemplates()
 
-	// Clonar la base para que cada página tenga su propio bloque content
+	// Clone the base template
 	tmpl, err := baseTemplates.Clone()
 	if err != nil {
+		logger.Error("Error cloning base template", "error", err)
 		respondError(w, "Error cloning base template", err, http.StatusInternalServerError)
 		return
 	}
 
-	// Parsear solo la página específica
-	tmpl, err = tmpl.ParseFiles(pageFile)
+	// Parse the required template pages
+	tmpl, err = tmpl.ParseFiles(pageFiles...)
 	if err != nil {
-		respondError(w, fmt.Sprintf("Error parsing page template %s", pageFile), err, http.StatusInternalServerError)
+		logger.Error("Error parsing page templates",
+			"files", strings.Join(pageFiles, ","),
+			"error", err)
+		respondError(w, fmt.Sprintf("Error parsing page templates [%s]", strings.Join(pageFiles, ",")), err, http.StatusInternalServerError)
 		return
 	}
 
-	// Ejecutar la base, que ahora contiene el content de la página
+	// Render the required page, using the base template and with the given data
 	if err := tmpl.ExecuteTemplate(w, "base.html", data); err != nil {
-		respondError(w, fmt.Sprintf("Template execution error for %s", pageFile), err, http.StatusInternalServerError)
+		logger.Error("Template execution error",
+			"files", strings.Join(pageFiles, ","),
+			"error", err)
+		respondError(w, fmt.Sprintf("Template execution error for [%s]", strings.Join(pageFiles, ",")), err, http.StatusInternalServerError)
 	}
 }
 
