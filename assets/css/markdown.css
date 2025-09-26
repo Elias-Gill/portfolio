@@ -51,8 +51,8 @@
 }
 
 .markdown-content a {
-    color: var(--accent-cyan);
     text-decoration: underline;
+    font-weight: 600;
 }
 
 .markdown-content a:hover {
