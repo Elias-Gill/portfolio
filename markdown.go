@@ -34,7 +34,6 @@ var markdown = goldmark.New(
 	),
 )
 
-
 // Like extractPostMetadata, but takes in a fs.DirEntry, so the steps to retrieve the metadata
 // is a little bit different.
 func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {

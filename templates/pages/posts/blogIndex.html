@@ -12,7 +12,8 @@
           <a href="/posts/{{ $featured.Id }}" class="card-image">
             <figure class="image is-2by1">
               <img 
-                src="{{ if fileExists $featured.Image }}/media/{{ $featured.Image }}{{ else }}/assets/no_image.webp{{ end }}" 
+                src="{{ if fileExists $featured.Image }}/media/{{ $featured.Image }}{{ else
+                }}/assets/no_image.svg{{ end }}" 
                 alt="{{ $featured.Title }}">
             </figure>
           </a>
@@ -39,7 +40,7 @@
           <a href="/posts/{{ $post.Id }}" class="card-image">
             <figure class="image is-2by1">
               <img 
-                          src="{{ if fileExists $post.Image }}/media/{{ $post.Image }}{{ else }}/assets/no_image.webp{{ end }}" 
+                          src="{{ if fileExists $post.Image }}/media/{{ $post.Image }}{{ else }}/assets/no_image.svg{{ end }}" 
                           alt="{{ $post.Title }}">
             </figure>
           </a>
