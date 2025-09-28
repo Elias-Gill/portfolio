@@ -16,20 +16,9 @@ import (
 	"sync"
 
 	"github.com/elias-gill/portfolio/logger"
-	"github.com/yuin/goldmark"
-	highlighting "github.com/yuin/goldmark-highlighting"
-	meta "github.com/yuin/goldmark-meta"
 )
 
 var (
-	// Goldmark parser global
-	md = goldmark.New(
-		goldmark.WithExtensions(
-			meta.Meta,
-			highlighting.NewHighlighting(highlighting.WithStyle("base16-snazzy")),
-		),
-	)
-
 	// Cache solo de base + parciales
 	baseTemplates     *template.Template
 	baseTemplatesOnce sync.Once
@@ -126,33 +115,33 @@ func serveBlogIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func serveBlogpostDetail(w http.ResponseWriter, r *http.Request) {
-	id := r.PathValue("post")
-	if id == "" || strings.Contains(id, "..") {
+	postFileName := r.PathValue("post")
+	if postFileName == "" || strings.Contains(postFileName, "..") {
 		respondError(w, "Invalid post path", nil, http.StatusBadRequest)
 		return
 	}
 
-	file, err := os.ReadFile(path.Join(blogPath, id))
+	fileContent, err := os.ReadFile(path.Join(blogPath, postFileName))
 	if err != nil {
 		http.NotFound(w, r)
 		return
 	}
 
-	var content bytes.Buffer
-	if err := md.Convert(file, &content); err != nil {
+	var parsedMarkdown bytes.Buffer
+	if err := parseFile(fileContent, &parsedMarkdown); err != nil {
 		respondError(w, "Error loading markdown file", err, http.StatusInternalServerError)
 		return
 	}
 
-	data, err := extractPostMetadata(id)
+	fileMetadata, err := extractMetadataFromFilePath(postFileName)
 	if err != nil {
 		respondError(w, "Error loading file metadata", err, http.StatusInternalServerError)
 		return
 	}
 
 	post := Post{
-		Content: template.HTML(content.String()),
-		Meta:    data,
+		Content:  template.HTML(parsedMarkdown.String()),
+		MetaData: fileMetadata,
 	}
 
 	renderTemplates(

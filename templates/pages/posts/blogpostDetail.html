@@ -7,9 +7,10 @@
         <div class="mb-5">
           <div class="mb-5" style="border-bottom: 1px solid var(--muted); padding-bottom: 12px;">
             <h1 class="title is-1">
-              {{ if .Meta.Title }}{{ .Meta.Title }}{{ else }}{{ .Meta.Id }}{{ end }}
+              {{ if .MetaData.Title }}{{ .MetaData.Title }}{{ else }}{{ .MetaData.Id }}{{ end }}
             </h1>
-            <p><small>Fecha de publicación: <span style="color: var(--accent);"> {{ if .Meta.Date }} {{ .Meta.Date }} {{ else }} desconocida {{ end }} </span> </small></p>
+            <p><small>Fecha de publicación: <span style="color: var(--accent);"> {{ if
+                    .MetaData.Date }} {{ .MetaData.Date }} {{ else }} desconocida {{ end }} </span> </small></p>
           </div>
           <div class="markdown-content">
             {{ .Content }}

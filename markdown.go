@@ -7,11 +7,12 @@ import (
 	"os"
 	"path"
 
-	"github.com/elias-gill/portfolio/logger"
-
 	"github.com/yuin/goldmark"
+	highlighting "github.com/yuin/goldmark-highlighting"
 	meta "github.com/yuin/goldmark-meta"
+	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 )
 
 // NOTE: for now is not needed to cast the metadata to specific data types
@@ -24,40 +25,47 @@ type Metadata struct {
 }
 
 type Post struct {
-	Content template.HTML
-	Meta    *Metadata
+	Content  template.HTML
+	MetaData *Metadata
 }
 
-var markdown = goldmark.New(
+var markdownMetadataExtractor = goldmark.New(
 	goldmark.WithExtensions(
 		meta.Meta,
 	),
 )
 
-// Like extractPostMetadata, but takes in a fs.DirEntry, so the steps to retrieve the metadata
-// is a little bit different.
-func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
-	content, err := os.ReadFile(path.Join(blogPath, file.Name()))
+// Goldmark parser final
+var markdownParser = goldmark.New(
+	goldmark.WithRendererOptions(html.WithUnsafe()),
+	goldmark.WithExtensions(
+		meta.Meta,
+		extension.Table,
+		highlighting.NewHighlighting(highlighting.WithStyle("base16-snazzy")),
+	),
+)
+
+func extractMetadataFromFilePath(filePath string) (*Metadata, error) {
+	content, err := os.ReadFile(path.Join(blogPath, filePath))
 	if err != nil {
 		return nil, err
 	}
 
-	// extract file metadata
 	var buf bytes.Buffer
 	context := parser.NewContext()
-	if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
-		logger.Error("Error parsing metadata", "error", err.Error())
+	err = markdownMetadataExtractor.Convert(content, &buf, parser.WithContext(context))
+	if err != nil {
 		return nil, err
 	}
-	metaData := meta.Get(context)
 
+	metaData := meta.Get(context)
 	var img string
 	if metaData["Image"] != nil {
 		img = metaData["Image"].(string)
 	}
 
 	return &Metadata{
-		Id:          file.Name(),
+		Id:          filePath,
 		Title:       metaData["Title"],
 		Date:        metaData["Date"],
 		Description: metaData["Description"],
@@ -65,36 +73,11 @@ func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
 	}, nil
 }
 
-func extractPostMetadata(file string) (*Metadata, error) {
-	content, err := os.ReadFile(path.Join(blogPath, file))
-	if err != nil {
-		return nil, err
-	}
+// version for DirEntry just calls the unified function
+func extractMetaFromDirEntry(file fs.DirEntry) (*Metadata, error) {
+	return extractMetadataFromFilePath(file.Name())
+}
 
-	markdown := goldmark.New(
-		goldmark.WithExtensions(
-			meta.Meta,
-		),
-	)
-
-	// extract file metadata
-	var buf bytes.Buffer
-	context := parser.NewContext()
-	if err := markdown.Convert([]byte(content), &buf, parser.WithContext(context)); err != nil {
-		return nil, err
-	}
-	metaData := meta.Get(context)
-
-	var img string
-	if metaData["Image"] != nil {
-		img = metaData["Image"].(string)
-	}
-
-	return &Metadata{
-		Image:       img,
-		Id:          file,
-		Title:       metaData["Title"],
-		Date:        metaData["Date"],
-		Description: metaData["Description"],
-	}, nil
+func parseFile(body []byte, ouputBuffer *bytes.Buffer) error {
+	return markdownParser.Convert(body, ouputBuffer)
 }

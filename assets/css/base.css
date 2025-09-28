@@ -49,7 +49,7 @@ html {
 
 html,
 body {
-    overscroll-behavior: none;
+    overscroll-behavior: auto;
 }
 
 section {
