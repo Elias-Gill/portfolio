@@ -46,6 +46,7 @@ func RegisterRoutes() {
 		resourcesPath = envResourcesPath
 	}
 
+	// Paths
 	posts_media_path = path.Join(blogPath, "media")
 	assets_path = path.Join(resourcesPath, "assets")
 	templates_path = path.Join(resourcesPath, "templates")
@@ -53,6 +54,9 @@ func RegisterRoutes() {
 
 	// route for serving static files
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(assets_path))))
+	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, path.Join(assets_path, "favicon.ico"))
+	})
 
 	// route for serving posts media and attachments
 	http.Handle("/media/", http.StripPrefix("/media/", http.FileServer(http.Dir(posts_media_path))))
