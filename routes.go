@@ -9,7 +9,6 @@ import (
 	"html/template"
 	"io"
 	"net/http"
-	"net/url"
 	"os"
 	"os/exec"
 	"path"
@@ -19,11 +18,7 @@ import (
 	"github.com/elias-gill/portfolio/logger"
 )
 
-const sitemapURL = "https://portfolio-elias-gill.fly.dev/posts/sitemap.xml/"
-
 var (
-	pingURL = "https://www.google.com/ping?sitemap=" + url.QueryEscape(sitemapURL)
-
 	// Cache solo de base + parciales
 	baseTemplates     *template.Template
 	baseTemplatesOnce sync.Once
@@ -306,24 +301,5 @@ func gitPull() error {
 	}
 
 	logger.Info("Updated repo succesfully")
-
-	if err := pingGoogle(); err != nil {
-		logger.Error("Error updating blog sitemap", "error", err)
-	}
-
-	return nil
-}
-
-func pingGoogle() error {
-	resp, err := http.Get(pingURL)
-	if err != nil {
-		return fmt.Errorf("Error haciendo ping a Google: %w", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("Google devolvió status %d", resp.StatusCode)
-	}
-
 	return nil
 }
