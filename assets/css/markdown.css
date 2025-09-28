@@ -138,6 +138,21 @@
     height: auto;
 }
 
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+    .markdown-content img {
+        max-width: 80%;
+        /* aumenta el tamaño relativo en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .markdown-content img {
+        max-width: 95%;
+        /* casi ancho completo en móviles */
+    }
+}
+
 .markdown-content hr {
     margin: 1rem 0;
     background-color: var(--border);
