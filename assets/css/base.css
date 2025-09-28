@@ -47,6 +47,11 @@ html {
     font-family: system-ui, sans-serif;
 }
 
+html,
+body {
+    overscroll-behavior: none;
+}
+
 section {
     scroll-margin-top: 16.8vh;
 }
