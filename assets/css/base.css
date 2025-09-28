@@ -1,17 +1,43 @@
 :root {
+    /* === principal document colors ===== */
     --bg: #222323;
     --fg: #dedede;
+    --muted: #7d7d7d;
+
+    /* === accent colors ===== */
     --accent-pink: #C492b1;
     --accent-cyan: #97D7BD;
     --accent-orange: #e6b99d;
-    --muted: #7d7d7d;
+
+    /* === special and background colors === */
     --border: #585858;
     --bg-dark: #191919;
     --bg-hover: #2f2f2f;
     --bg-highlight: #3b3b3e;
-    --cursor-line: #252525;
-    --cursor-col: #15222F;
-    --dim: #636363;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        /* === principal document colors ===== */
+        --bg: #f4f4f4;
+        --fg: #222222;
+        --muted: #5a5a5a;
+
+        /* === accent colors ===== */
+        --accent-pink: #b14482;
+        --accent-cyan: #3CA374;
+        --accent-orange: #d2844f;
+
+        /* === special and background colors === */
+        --border: #c7c7c7;
+        --bg-dark: #e8e8e8;
+        --bg-hover: #dddddd;
+        --bg-highlight: #d2d2d5;
+    }
+
+    .white-icon {
+        background: var(--fg);
+    }
 }
 
 html {
@@ -111,7 +137,7 @@ a:hover {
 .card:hover,
 .button:hover,
 .media:hover {
-    background-color: var(--cursor-line);
+    background-color: var(--bg-hover);
 }
 
 /* Visual-Like Highlight */

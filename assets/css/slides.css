@@ -5,15 +5,19 @@
     margin-bottom: 1.5rem;
 }
 
-.message-header {
+.message-header,
+.message-body {
     background-color: var(--bg);
+}
+
+.message-header {
+    border-bottom: 1px solid var(--border);
     color: var(--accent-cyan);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
 .message-body {
-    background-color: var(--bg-hover);
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
 
@@ -22,8 +26,20 @@
     display: flex;
     flex-direction: column;
 }
+
+@media (prefers-color-scheme: light) {
+    .message-body {
+        background-color: var(--bg);
+    }
+
+    .message-header {
+        border: 1px solid (--border);
+    }
+}
+
 .message-body p {
-    flex-grow: 1; /* El texto ocupa el espacio restante */
+    flex-grow: 1;
+    /* El texto ocupa el espacio restante */
 }
 
 /* Slider Styles */
@@ -75,7 +91,7 @@
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: var(--dim);
+    background: var(--bg-highlight);
     border-radius: 50%;
     margin: 0 0.25rem;
     transition: background 0.3s ease;
@@ -146,5 +162,6 @@
 .message.is-bordered {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Importante: que ocupe todo el ancho del column */
+    width: 100%;
+    /* Importante: que ocupe todo el ancho del column */
 }

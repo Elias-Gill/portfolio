@@ -68,6 +68,13 @@
     font-weight: 500;
 }
 
+@media (prefers-color-scheme: light) {
+    .markdown-content pre span {
+        color: var(--bg);
+        /* background: var(--fg) !important; */
+    }
+}
+
 .markdown-content pre code {
     background: none;
 }

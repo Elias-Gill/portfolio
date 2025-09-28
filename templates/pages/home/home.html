@@ -1,16 +1,16 @@
 {{ define "content" }}
 <!-- Hero Section -->
 <link rel="stylesheet" href="/assets/css/home.css">
-<section class="hero is-fullheight gruvbox-bg pb-6">
+<section class="hero is-fullheight pb-6">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
         <!-- Left Column: Text Content -->
         <div class="column is-two-thirds">
-          <h1 class="title is-1 gruvbox-magenta">
+          <h1 class="title is-1">
             Desarrollador Backend Junior enfocado en eficiencia, algoritmos y sistemas escalables
           </h1>
-          <div class="content pr-6 gruvbox-fg">
+          <div class="content pr-6">
             <p>
               Con amplia experiencia en Go y conocimientos avanzados en TypeScript, Python,
               Java y manejo en entornos Linux, ademas de conocimientos básicos de IoT y
@@ -22,17 +22,17 @@
               que utilizo, con un especial interés en entornos basados en la línea de comandos.
             </p>
           </div>
-          <h2 class="title is-4 gruvbox-cyan">Experiencia en</h2>
+          <h2 class="title is-4">Experiencia en</h2>
           {{ block "tecnologias" . }} {{ end }}
           <!-- Botones movidos aquí -->
           <div class="buttons mt-6">
-            <a href="#proyectos" class="button is-link gruvbox-cyan-bg mr-3">Ver mis proyectos</a>
-            <a href="#contacto" class="button is-link gruvbox-cyan-bg mr-3">Contactarme</a>
+            <a href="#proyectos" class="button is-link mr-3">Ver mis proyectos</a>
+            <a href="#contacto" class="button is-link mr-3">Contactarme</a>
           </div>
         </div>
         <!-- Right Column: Profile Image -->
         <div class="column">
-          <div class="card gruvbox-secondary-bg">
+          <div class="card">
             <div class="card-image">
               <figure class="video">
                 <video autoplay loop muted playsinline>
@@ -48,45 +48,41 @@
     </div>
   </div>
 </section>
-
 <!-- Projects Section - Fondo diferente y más compacto -->
 <section class="section py-5" style="background-color: var(--bg-dark);" data-aos="fade-up" id="proyectos">
   <div class="container mt-2">
-    <h1 class="title is-2 gruvbox-orange">Proyectos Destacados</h1>
-    <p class="gruvbox-fg mb-4">
+    <h1 class="title is-2">Proyectos Destacados</h1>
+    <p class="mb-4">
       Estos son algunos de mis proyectos más destacados y mejor pulidos. Si quieres ver más, visita mi
-      <a target="_blank" class="gruvbox-cyan" href="https://github.com/elias-gill">GitHub</a>.
+      <a target="_blank" href="https://github.com/elias-gill">GitHub</a>.
     </p>
     {{ block "projects" . }} {{ end }}
   </div>
 </section>
-
 <!-- Contact section - Fondo diferente y más compacto -->
 <section class="section my-5" data-aos="fade-up" id="contacto">
   <div class="container">
-    <h1 class="title is-2 gruvbox-orange">Contacto</h1>
-    <div class="content gruvbox-fg">
+    <h1 class="title is-2">Contacto</h1>
+    <div class="content">
       <p>
         Si estás interesado en colaborar, tienes alguna pregunta o simplemente quieres charlar sobre tecnología, no dudes en contactarme. ¡Estoy siempre abierto a nuevas oportunidades y conversaciones interesantes!
       </p>
       <div class="columns">
         <!-- Columna única: Información de contacto -->
         <div class="column">
-          <h2 class="title is-4 gruvbox-cyan">¿Cómo contactarme?</h2>
+          <h2 class="title is-4">¿Cómo contactarme?</h2>
           <ul>
             <li>
               <strong>LinkedIn:</strong>
-              <a href="https://www.linkedin.com/in/elias-sebastian-gill-quinatana-87551b241" target="_blank"
-                    class="gruvbox-cyan">in/elias-sebastian-gill-quinatana-87551b241</a>
+              <a href="https://www.linkedin.com/in/elias-sebastian-gill-quinatana-87551b241" target="_blank">in/elias-sebastian-gill-quinatana-87551b241</a>
             </li>
             <li>
               <strong>Correo electrónico:</strong>
-              <a href="mailto:eliasgill42@gmail.com" class="gruvbox-cyan">eliasgill42@gmail.com</a>
+              <a href="mailto:eliasgill42@gmail.com">eliasgill42@gmail.com</a>
             </li>
             <li>
               <strong>GitHub:</strong>
-              <a href="https://github.com/elias-gill" target="_blank"
-                class="gruvbox-cyan">github.com/elias-gill</a>
+              <a href="https://github.com/elias-gill" target="_blank">github.com/elias-gill</a>
             </li>
           </ul>
         </div>
@@ -94,7 +90,6 @@
     </div>
   </div>
 </section>
-
 <!-- Animations -->
 <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
