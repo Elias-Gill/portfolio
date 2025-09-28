@@ -28,11 +28,11 @@ func Error(msg string, args ...any) {
 }
 
 func Warn(msg string, args ...any) {
-	logger.Error(msg, args...)
+	logger.Warn(msg, args...)
 }
 
 func Info(msg string, args ...any) {
-	logger.Error(msg, args...)
+	logger.Info(msg, args...)
 }
 
 func Fatal(msg string, args ...any) {

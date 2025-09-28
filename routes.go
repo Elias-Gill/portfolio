@@ -9,6 +9,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path"
@@ -18,7 +19,11 @@ import (
 	"github.com/elias-gill/portfolio/logger"
 )
 
+const sitemapURL = "https://portfolio-elias-gill.fly.dev/posts/sitemap.xml/"
+
 var (
+	pingURL = "https://www.google.com/ping?sitemap=" + url.QueryEscape(sitemapURL)
+
 	// Cache solo de base + parciales
 	baseTemplates     *template.Template
 	baseTemplatesOnce sync.Once
@@ -124,6 +129,15 @@ func serveBlogpostDetail(w http.ResponseWriter, r *http.Request) {
 	fileContent, err := os.ReadFile(path.Join(blogPath, postFileName))
 	if err != nil {
 		http.NotFound(w, r)
+		return
+	}
+
+	// NOTE: para poder generar sitemaps "dinamicos". Listamos el sitemap que ya esta en la
+	// blog path. No me cuesta nada agregar al sitemap una entrada nueva de forma manual.
+	if postFileName == "sitemap.xml" {
+		w.Header().Set("Content-Type", "application/xml")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(fileContent))
 		return
 	}
 
@@ -288,5 +302,24 @@ func gitPull() error {
 	}
 
 	logger.Info("Updated repo succesfully")
+
+	if err := pingGoogle(); err != nil {
+		logger.Error("Error updating blog sitemap", "error", err)
+	}
+
+	return nil
+}
+
+func pingGoogle() error {
+	resp, err := http.Get(pingURL)
+	if err != nil {
+		return fmt.Errorf("Error haciendo ping a Google: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("Google devolvió status %d", resp.StatusCode)
+	}
+
 	return nil
 }
