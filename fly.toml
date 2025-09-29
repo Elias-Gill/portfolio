@@ -4,7 +4,7 @@
 #
 
 app = 'portfolio-elias-gill'
-primary_region = 'eze'
+primary_region = 'gru'
 
 [build]
 
